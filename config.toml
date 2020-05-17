@@ -2,7 +2,7 @@
 #
 # Don't modify this
 
-baseURL = "https://nakli.tech"
+baseURL = "https://condescending-brattain-6281e9.netlify.com/"
 title = "Nakli.Tech"
 defaultContentLanguage = "en"
 languageCode = "en-us"
