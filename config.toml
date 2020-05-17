@@ -1,0 +1,82 @@
+# Global site configuration
+#
+# Don't modify this
+
+baseURL = "https://nakli.tech"
+title = "Nakli.Tech"
+defaultContentLanguage = "en"
+languageCode = "en-us"
+
+theme = "loveit"
+
+paginate = 10
+canonifyURLs = true
+summaryLength = 40
+rssLimit = 100
+enableEmoji = true
+enableRobotsTXT = true
+pluralizelisttitles = false
+
+
+
+[params]
+    version = "0.2.X"  # Loveit theme version
+    description = ""
+    defaultTheme = "dark"
+    dateFormat = "2006-01-02"
+
+    [params.home]
+        [params.home.profile]
+          enable = true
+          gravatarEmail = "oli.shubham@gmail.com"
+          title = "Oli"
+          subtitle = "DevOps Engineer @ Tripoto"
+          typeit = false
+          social = true
+          disclaimer = ""
+
+
+    [params.footer]
+        enable = true
+        custom = ''
+        hugo = false
+        copyright = true
+        author = false
+        since = 2019
+        license = '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
+
+
+
+[params.page]
+    [params.page.toc]
+        enable = false
+
+    [params.page.code]
+        maxShownLines = 50      # enable this to some high value otherwise code block will collapse
+
+
+[params.social]
+github = "shubhamoli"
+linkedin = "shubham-oli-44936287/"
+twitter = "oli_shubham"
+quora = "Shubham-Oli"
+stackoverflow = "7416198/oli?tab=profile"
+email = "oli.shubham@gmail.com"
+
+
+
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = false
+    style = "monokai"
+
+
+
+[author]
+  name = "Oli"
+  email = "oli.shubham@gmail.com"
+
