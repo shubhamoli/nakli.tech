@@ -1,4 +1,4 @@
-
+![](https://img.shields.io/badge/hugo-v0.6.2-brightgreen)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/670022f1-9fc3-4803-8e8b-43cc213c87b5/deploy-status)](https://app.netlify.com/sites/condescending-brattain-6281e9/deploys)
 
 # Nakli.Tech
