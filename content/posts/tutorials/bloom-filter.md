@@ -23,7 +23,7 @@ feature = ""
 
 **You:** *Sounds easy.* 
 
-Most probably your first intuitive approach will be to check for username availibilty in your database everytime a new
+Most probably your first intuitive approach will be to check for username availabilty in your database everytime a new
 user tries to signup. Right?
 
 **Manager:** Good, but does this going to scale well? can we make it more efficient?
@@ -33,7 +33,7 @@ Somehow we have to minimize:
 - Network calls
 
 **You:** Perfect, I know a data structure highly appropriate for these kind of
-problems known as Bloom Filter.
+problems and it is known as Bloom Filter.
 
 *<FeelingProudOfYourself.gif>* 
 
@@ -51,12 +51,24 @@ efficient than conventional hash tables and therefore preferred in low core memo
 
 It is probalistic in nature as it may return false positives. If bloom filter
 says an element is not present then we can be 100% sure that it's not ***but*** for any
-positive response, the elemnt may or may not be present in the set and in this
+positive response, the element may or may not be present in the set and in this
 case we have to query our primary source (may be DB) for final confirmation.
 
 One may argue that we're stil end up calling our primary source for the final
 confirmation then what's the benefit, but let me tell you that with proper configuration
 (using mathematics) we can reduce these calls to a huge extent (almost negligible).
+
+For calculating optimal value of `m` and `k` from total no. of elements `n` and
+error rate `e` see formula in the program below or see [here](https://en.wikipedia.org/wiki/Bloom_filter#Optimal_number_of_hash_functions)
+
+While risking false positives, bloom filter has substantial space advantage over
+other Data Structures like hash tables, tries, binary search trees, etc. bacause these DS
+store the element itself which can require small no. of bits (for ints) to
+arbitrary large no. of bits (for strings). Bloom filter doesn't store element at
+all and a separate solution like a DB should be used to store actual element.
+
+**Important:** *A Bloom filter with a `1%` error and an optimal value of `k`, in contrast, requires
+only about `9.6 bits` per element, regardless of the size of the elements*
 
 
 &nbsp;
