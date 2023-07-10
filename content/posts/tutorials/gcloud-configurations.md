@@ -138,6 +138,8 @@ $ gcloud config unset project
 
 You can edit all other configurations in the similar way or even prepare a script to set these programmatically if you have 10s of projects to manage.
 
+Once you're done, you need to re-login using `$ gcloud auth login`.
+
 &nbsp;
 ### Switching between configuration
 
@@ -158,6 +160,12 @@ $ gcloud config configurations activate dev
 # project will be auto set to oli-dev
 # and region will be auto set to the europe-west4 region
 $ gcloud compute ssh instance-001
+```
+
+Apart from the above, most of the `gcloud` commands also support `--configuration=<name>`.
+
+```sh
+$ gcloud compute ssh instance-001 --configuration=dev
 ```
 
 &nbsp;
