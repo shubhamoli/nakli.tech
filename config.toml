@@ -7,7 +7,7 @@ title = "Nakli.Tech"
 defaultContentLanguage = "en"
 languageCode = "en-us"
 
-theme = "LoveIt"
+theme = "obsession"
 
 paginate = 10
 canonifyURLs = true
