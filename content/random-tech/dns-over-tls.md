@@ -1,11 +1,12 @@
-+++
-date = 2020-04-07T09:00:00Z
-lastmod = 2020-04-07T09:00:00Z
-author = "Oli"
-title = "Encrypt DNS queries with DNS-over-TLS"
-subtitle = ""
-tags = ["Networking"]
-+++
+---
+date: 2020-04-07T09:00:00Z
+lastmod: 2020-04-07T09:00:00Z
+author: Oli
+title: Encrypt DNS queries with DNS-over-TLS
+subtitle: 
+tags:
+  - Networking
+---
 
 &nbsp;
 &nbsp;

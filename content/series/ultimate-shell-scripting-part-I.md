@@ -1,15 +1,15 @@
-+++
-date = 2019-10-23T09:00:00Z
-lastmod = 2019-10-23T09:00:00Z
-author = "Oli"
-title = "Ultimate shell scripting cheatsheet - part 1"
-subtitle = ""
-feature = ""
-tags = ["Shell", "Linux"]
-summary = ""
-[toc]
-  enable = true
-+++
+---
+date: 2019-10-23T09:00:00Z
+lastmod: 2019-10-23T09:00:00Z
+author: Oli
+title: Ultimate shell scripting cheatsheet - part 1
+subtitle: 
+feature: 
+tags:
+  - Shell
+  - Linux
+summary: 
+---
 
 
 &nbsp;

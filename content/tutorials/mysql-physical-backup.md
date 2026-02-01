@@ -1,15 +1,15 @@
-+++
-date = 2020-01-30T09:00:00Z
-lastmod = 2020-01-30T09:00:00Z
-author = "Oli"
-title = "MySQL Physical backup using XtraBackup"
-subtitle = ""
-feature = ""
-tags = ["DB", "Backups"]
-summary = ""
-[toc]
-  enable = true
-+++
+---
+date: 2020-01-30T09:00:00Z
+lastmod: 2020-01-30T09:00:00Z
+author: Oli
+title: MySQL Physical backup using XtraBackup
+subtitle: 
+feature: 
+tags:
+  - DB
+  - Backups
+summary: 
+---
 
 
 &nbsp; 

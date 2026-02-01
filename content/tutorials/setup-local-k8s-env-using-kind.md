@@ -1,15 +1,15 @@
-+++
-date = 2020-01-04T09:00:00Z
-lastmod = 2020-01-04T09:00:00Z
-author = "Oli"
-title = "Setup a 'sane' K8s cluster in local env using KinD"
-subtitle = ""
-feature = ""
-tags = ["Containers", "K8s"]
-summary = ""
-[toc]
-  enable = true
-+++
+---
+date: 2020-01-04T09:00:00Z
+lastmod: 2020-01-04T09:00:00Z
+author: Oli
+title: Setup a 'sane' K8s cluster in local env using KinD
+subtitle: 
+feature: 
+tags:
+  - Containers
+  - K8s
+summary: 
+---
 
 
 &nbsp;

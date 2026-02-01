@@ -1,15 +1,15 @@
-+++
-date = 2019-07-17T09:00:00Z
-lastmod = 2019-07-17T09:00:00Z
-author = "Oli"
-title = "12-factor app methodologies and containerized environment"
-subtitle = ""
-feature = ""
-tags = ["Containers", "Theory"]
-summary = ""
-[toc]
-  enable = true
-+++
+---
+date: 2019-07-17T09:00:00Z
+lastmod: 2019-07-17T09:00:00Z
+author: Oli
+title: 12-factor app methodologies and containerized environment
+subtitle: 
+feature: 
+tags:
+  - Containers
+  - Theory
+summary: 
+---
 
 
 &nbsp;

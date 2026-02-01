@@ -1,11 +1,13 @@
-+++
-date = 2023-02-19T09:00:00Z
-lastmod = 2023-03-12T09:00:00Z
-author = "Oli"
-title = "[TIL] Vim macros in conjuction with the arglist"
-subtitle = ""
-tags = ["Vim", "TIL"]
-+++
+---
+date: 2023-02-19T09:00:00Z
+lastmod: 2023-03-12T09:00:00Z
+author: Oli
+title: [TIL] Vim macros in conjuction with the arglist
+subtitle: 
+tags:
+  - Vim
+  - TIL
+---
 
 &nbsp;
 &nbsp;

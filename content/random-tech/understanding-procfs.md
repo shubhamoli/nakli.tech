@@ -1,13 +1,14 @@
-+++
-date = 2019-11-04T09:00:00Z
-lastmod = 2019-11-04T09:00:00Z
-author = "Oli"
-title = "Understanding procfs"
-subtitle = ""
-feature = ""
-tags = ["Linux"]
-summary = ""
-+++
+---
+date: 2019-11-04T09:00:00Z
+lastmod: 2019-11-04T09:00:00Z
+author: Oli
+title: Understanding procfs
+subtitle: 
+feature: 
+tags:
+  - Linux
+summary: 
+---
 
 
 &nbsp;

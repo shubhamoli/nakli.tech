@@ -1,13 +1,16 @@
-+++
-date = 2023-07-09T09:00:00Z
-lastmod = 2023-07-09T09:00:00Z
-author = "Oli"
-title = "Seamless switching b/w multiple projects using gcloud configurations"
-subtitle = ""
-feature = ""
-tags = ["cloud", "gcloud", "cli"]
-summary = ""
-+++
+---
+date: 2023-07-09T09:00:00Z
+lastmod: 2023-07-09T09:00:00Z
+author: Oli
+title: Seamless switching b/w multiple projects using gcloud configurations
+subtitle: 
+feature: 
+tags:
+  - cloud
+  - gcloud
+  - cli
+summary: 
+---
 
 
 Struggle of switching between multiple GCP projects is actually real. In addition to that, making mistakes like running destrucutive commands in a wrong GCP project is also fairly common.

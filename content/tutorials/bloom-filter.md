@@ -1,18 +1,15 @@
-+++
-date = 2020-07-19T09:00:00Z
-lastmod = 2020-07-19T09:00:00Z
-author = "Oli"
-title = "Writing a bloom filter in go"
-subtitle = ""
-tags = ["Data Structures", "Tutorials"]
-feature = ""
-
-[toc]
-  enable = false
-
-[code]
-  maxShownLines = 300
-+++
+---
+date: 2020-07-19T09:00:00Z
+lastmod: 2020-07-19T09:00:00Z
+author: Oli
+title: Writing a bloom filter in go
+subtitle: 
+tags:
+  - Data Structures
+  - Tutorials
+feature: 
+maxShownLines: 300
+---
 
 
 &nbsp;

@@ -1,14 +1,15 @@
-+++
-date = 2020-03-03T09:00:00Z
-lastmod = 2020-03-03T09:00:00Z
-author = "Oli"
-title = "Bastion servers as frontline security for your infrastructure"
-subtitle = ""
-tags = ["Networking", "Security", "Infrastructure"]
-feature = "testing"
-[toc]
-  enable = false
-+++
+---
+date: 2020-03-03T09:00:00Z
+lastmod: 2020-03-03T09:00:00Z
+author: Oli
+title: Bastion servers as frontline security for your infrastructure
+subtitle: 
+tags:
+  - Networking
+  - Security
+  - Infrastructure
+feature: testing
+---
 
 &nbsp;
 &nbsp;

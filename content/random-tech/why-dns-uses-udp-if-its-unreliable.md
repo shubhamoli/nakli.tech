@@ -1,11 +1,12 @@
-+++
-date = 2020-08-30T09:00:00Z
-lastmod = 2020-08-30T09:00:00Z
-author = "Oli"
-title = "Why DNS primarily uses UDP if it is un-reliable?"
-subtitle = ""
-tags = ["Networking"] 
-+++
+---
+date: 2020-08-30T09:00:00Z
+lastmod: 2020-08-30T09:00:00Z
+author: Oli
+title: Why DNS primarily uses UDP if it is un-reliable?
+subtitle: 
+tags:
+  - Networking
+---
 
 &nbsp; &nbsp;
 

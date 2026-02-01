@@ -1,13 +1,16 @@
-+++
-date = 2020-01-18T09:00:00Z
-lastmod = 2020-01-18T09:00:00Z
-author = "Oli"
-title = "My vim+tmux based Terminal workflow"
-subtitle = ""
-feature = ""
-tags = ["Vim", "Tmux", "Linux"]
-summary = ""
-+++
+---
+date: 2020-01-18T09:00:00Z
+lastmod: 2020-01-18T09:00:00Z
+author: Oli
+title: My vim+tmux based Terminal workflow
+subtitle: 
+feature: 
+tags:
+  - Vim
+  - Tmux
+  - Linux
+summary: 
+---
 
 
 &nbsp;

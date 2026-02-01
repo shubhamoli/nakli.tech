@@ -1,16 +1,14 @@
-+++
-date = 2019-11-07T09:00:00Z
-lastmod = 2019-11-07T09:00:00Z
-author = "Oli"
-title = "Python collections module"
-subtitle = ""
-feature = ""
-tags = ["Python"]
-summary = ""
-
-[toc]
-  enable = true
-+++
+---
+date: 2019-11-07T09:00:00Z
+lastmod: 2019-11-07T09:00:00Z
+author: Oli
+title: Python collections module
+subtitle: 
+feature: 
+tags:
+  - Python
+summary: 
+---
 
 
 &nbsp;
