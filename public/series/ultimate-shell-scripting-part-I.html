@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate shell scripting cheatsheet - part 1</title>
+    <!-- Fonts: Inter + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Icons: Material Symbols Rounded -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <!-- Syntax Highlighting: highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <!-- Sidebar Collapse Toggle (Desktop) -->
+    <input type="checkbox" id="sidebar-collapse" class="sidebar-collapse-checkbox">
+    
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <label for="nav-toggle" class="nav-button" aria-label="Toggle Menu">
+            <span class="nav-icon"></span>
+        </label>
+        <a href="/" class="header-logo">Nakli.Tech</a>
+        <button id="mobile-theme-btn" class="icon-btn mobile-theme-btn" aria-label="Toggle Theme">
+            <span class="material-symbols-rounded">dark_mode</span>
+        </button>
+    </header>
+
+    <div class="layout">
+        <!-- Action Bar (Obsidian-style) -->
+        <aside class="action-bar">
+            <div class="action-bar__top">
+                <label for="sidebar-collapse" class="icon-btn action-btn" title="Toggle Sidebar">
+                    <span class="material-symbols-rounded sidebar-icon-collapsed">menu</span>
+                    <span class="material-symbols-rounded sidebar-icon-expanded">menu_open</span>
+                </label>
+                <!-- Top actions (e.g., Search) -->
+            </div>
+            <div class="action-bar__bottom">
+                <button id="theme-toggle-btn" class="icon-btn action-btn" title="Toggle Theme">
+                    <span class="material-symbols-rounded">dark_mode</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="nav">
+                <div class="nav-header">
+                    <a href="/" class="nav-logo">Nakli.Tech</a>
+                </div>
+                <div class="nav-content">
+                    <ul class="nav-list"><li class="nav-folder">
+                <input type="checkbox" id="folder-Random-Tech" class="folder-checkbox">
+                <label for="folder-Random-Tech" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">Random Tech</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/Random Tech/12-factor-app.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">12-factor-app</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/bastion-servers.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bastion-servers</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/dns-over-tls.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">dns-over-tls</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/understanding-procfs.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">understanding-procfs</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/vim-macros-with-args.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">vim-macros-with-args</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/why-dns-uses-udp-if-its-unreliable.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">why-dns-uses-udp-if-its-unreliable</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-series" class="folder-checkbox">
+                <label for="folder-series" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">series</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/series/ultimate-shell-scripting-part-I.html" class="nav-link file-link is-active">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">ultimate-shell-scripting-part-I</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-tutorials" class="folder-checkbox">
+                <label for="folder-tutorials" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">tutorials</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/tutorials/bloom-filter.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bloom-filter</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/gcloud-configurations.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">gcloud-configurations</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/my-vim-tmux-setup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">my-vim-tmux-setup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/mysql-physical-backup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">mysql-physical-backup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/python-collections-module.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">python-collections-module</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/setup-local-k8s-env-using-kind.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">setup-local-k8s-env-using-kind</span>
+                </a>
+              </li></ul>
+              </li></ul>
+                </div>
+                <footer class="sidebar-footer">
+                    <p>&copy; 2026 Nakli.Tech</p>
+                    <p>Built with ❤️ using <a href="https://github.com/shubhamoli/Patra" target="_blank">Patra</a></p>
+                </footer>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="markdown-body">
+                <header class="page-header"><h1 class="page-title">Ultimate shell scripting cheatsheet - part 1</h1><div class="page-meta"><span class="page-date">23/10/2019</span><span class="page-read-time">6 min read</span><span class="page-words">1086 words</span></div><div class="page-tags"><span class="tag">Shell</span><span class="tag">Linux</span></div></header>
+                <p>&nbsp;</p>
+<p>Shell and Shell scripting is unarguably one of the best asset of UNIX systems.
+Yeah <em>prima facie</em>, it looks intimidating and old-school, this is all because it’s
+almost the same for almost five decades now.</p>
+<p>Let’s begin!</p>
+<p>&nbsp;</p>
+<h2><code>#!/bin/sh</code> – Shebang</h2>
+<p>Almost all shell scripts out there have this weird looking line on the top the
+file. What does this line even mean? is it a comment? or a superstition?</p>
+<p>Actually, this line has a very significant meaning and it tells the absolute
+path of the interpreter which is supposed to execute the script. This path can be
+<code>/bin/bash</code> or <code>/bin/sh</code> for shell and <code>#!&lt;path/to/python/bin&gt;</code> for python scripts.</p>
+<p>To find out your shell interpreter just <code>$ echo $SHELL</code> (inside terminal)
+and to find your python interpreter you can use <code>$ which python</code> command.</p>
+<p>The advantage is that — since *NIX systems don’t give special status to
+extension of a file (like Windows does) and it all depends upon the content of
+file and the program reading it. So this Shebang line declares the
+interpreter/program on your behalf and you can avoid explicitly defining the
+interpreter.</p>
+<p>With shebang line on top, you can run your scripts directly like <code>$ ./script.sh</code> (execute +x permission is required though) and it should work as expected.</p>
+<p><strong>Note:</strong> don’t hardcode <code>/bin/bash</code> as your shell because you will lose portability
+across systems as <code>bash</code> is not the default shell in all systems, 
+<a href="https://www.theverge.com/2019/6/4/18651872/apple-macos-catalina-zsh-bash-shell-replacement-features">OSX from Catalina has <code>zsh</code> as default shell.</a></p>
+<p>&nbsp;</p>
+<h2>Variables</h2>
+<p>Shell apart from being an interface to interact with the Kernel, it is also a
+programming language and has the concept of variables. Let’s see them in action.</p>
+<pre><code>#!/bin/sh
+
+foo=1                      # Notice no-spacing across &#39;=&#39; (strict)
+bar=Hello                  # No quotes required for word
+baz=&quot;Yo! I&#39;m learning!&quot;    # Quotes required for strings
+bam=$foo                   # $ is required to access value
+
+# variables can be assigned value 
+# from output of a command
+# but command needs to be wrapped in $() or backticks
+ham=$(date +&quot;%D %T&quot;)          
+spam=`date +&quot;%D %T&quot;`
+
+echo foo                  # output: foo
+echo $foo                 # output: 1
+echo &#39;$bar&#39;               # output: $bar (single quotes don&#39;t parse)
+echo &quot;$bar&quot;               # output: Hello
+echo &quot;${bar}, World!&quot;     # output: Hello, World!
+
+# save this file as script.sh
+# go to shell, mark file executable and then run
+
+$ chmod +x script.sh
+$ ./script.sh
+</code></pre>
+<p>&nbsp;</p>
+<h2>Conditionals</h2>
+<p>Without conditionals any scripting is limited, there are rare situations in
+real-world programs to be written without a single if-else statement (no switch
+case blocks too). Shell scripting is also no exception here but its conditionals
+are quite weird and might not be intuitive for beginners.</p>
+<h3>if-else statement</h3>
+<pre><code>#!/bin/sh
+
+if [ condition ]; then    # see spacing around condition (strict)
+  body
+elif [ another-condition ]; then
+  body
+fi 
+
+# Remember, we need to wrap variable with double quotes 
+# so that its value can be parsed
+if [ &quot;$foo&quot; = 5 ]; then        # Yes!, single &#39;=&#39; for comparison
+    echo &quot;Found&quot;
+else
+    echo &quot;Not Found&quot;
+fi
+
+# using &amp;&amp; operator
+if [ &quot;$foo&quot; = 5 ] &amp;&amp; [ &quot;$bar&quot; = hello ]; then 
+    echo &quot;Found&quot;
+else
+    echo &quot;Not Found&quot;
+fi
+
+# comparisons
+# since [ ... ] is same as &quot;test&quot; builtin hence
+# it supports all operators which we use with &quot;test&quot;
+if [ &quot;$foo&quot; -gt 4 ] &amp;&amp; [ &quot;$bar&quot; -lt 5 ]; then 
+    echo &quot;Found&quot;
+else
+    echo &quot;Not Found&quot;
+fi
+
+# Bash and few other shells support [[ ... ]]
+# this is an enhanced version and more intuitive than [ ... ]
+# but you may lose portability while using it
+# as it is supported by few shells
+# Also --
+# No wrapping of variable, multiple condition in same block
+# == operator for string comparator (lexical)
+# support commands using $(...) too
+if [[ $VAR_1 = 5 &amp;&amp; $VAR_2 == hello ]]; then
+    echo &quot;Found&quot;
+else
+    echo &quot;Not Found&quot;
+fi
+</code></pre>
+<h3>case statement</h3>
+<p>Apart from if-else statements for conditionals, shell also offers elegant case
+statement which you can somewhat relate to switch-case statements in General
+programming languages. Although, it has no concept of default and break keyword
+inside case</p>
+<pre><code>#!/bin/sh
+
+# &quot;case&quot; stmt. is generally used for argument handling of scripts
+case $1 in 
+  full)             # if first argument of script is &quot;full&quot;
+    init_full_backup     
+    ;;
+  incremental)      # if first argument is &quot;incremental&quot;
+    init_incremental_backup
+    ;;
+  *)                # this is similar to &quot;default&quot; case in many langs.
+    echo &quot;Sorry, I don&#39;t understand&quot;
+    ;;
+esac
+</code></pre>
+<p>&nbsp;</p>
+<h2>Loops – for and while</h2>
+<p>Sometimes you need to iterate over some sequence or need to run a block of code
+for certain number of times — What you do, you use loops. Like conditionals loops are
+also integral part of any programming language.</p>
+<pre><code>#!/bin/sh
+
+## 1. while loop
+while [ condition ]; do  # will run until condition is falsy
+   body
+done
+
+# somewhat more real world example
+a=0
+while [ &quot;$a&quot; -lt 5 ]; do
+   echo $a
+   if [ &quot;$a&quot; -eq 3 ]; then
+      break         # conditional breaking out of loop
+   fi
+   a=`expr $a + 1`
+done
+
+## 2. for loop
+for i in sequence; do
+    body
+done
+
+# OR
+
+for OUTPUT in $(Command-Here); do
+    command on $OUTPUT
+done
+
+# somewhat more real world examples
+for i in 1,2,3,4,5; do
+   echo $i
+done
+
+for file in /tmp/*; do    
+   [ -e &quot;$file&quot; ] || continue    # if file is empty, continue
+   echo $file        # prints filename of all files inside /tmp
+done
+
+## Bash has some modern features to these loops
+
+# like:
+# 1. C/C++ style three-expression for-loop syntax
+# 2. Ranges and steps {1..20..2} 1 to 20 with 2 step jump
+</code></pre>
+<p>Phew!, thanks a lot for bearing with me till here, that’s all for today. Let’s
+conclude part 1 here and please practice as much as you can. No need to create
+real world programs as of now, just play with scripting, do some random stuff
+because learning with fun is never exhausting.</p>
+<h2>Conclusion</h2>
+<p>As we know, Shell is an interface for us to talk to kernel and scripting helps
+us to take this communication to next-level.</p>
+<p>With programmable interface, you can automate your system administrative tasks
+like backing up your Database periodically, notify you when your Disk usage
+exceeds a certain threshold and much more.</p>
+<p>If you want to be a true UNIX/Linux admin rather than a normal user you must
+learn shell scripting and believe me you will never look back again.</p>
+<p>See you in Part 2</p>
+<p>#TillThenHappyCoding</p>
+
+            </article>
+        </main>
+        
+        <!-- Overlay for mobile when menu is open -->
+        <label for="nav-toggle" class="nav-overlay"></label>
+    </div>
+</body>
+</html>

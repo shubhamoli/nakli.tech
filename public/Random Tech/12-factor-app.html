@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12-factor app methodologies and containerized environment</title>
+    <!-- Fonts: Inter + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Icons: Material Symbols Rounded -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <!-- Syntax Highlighting: highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <!-- Sidebar Collapse Toggle (Desktop) -->
+    <input type="checkbox" id="sidebar-collapse" class="sidebar-collapse-checkbox">
+    
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <label for="nav-toggle" class="nav-button" aria-label="Toggle Menu">
+            <span class="nav-icon"></span>
+        </label>
+        <a href="/" class="header-logo">Nakli.Tech</a>
+        <button id="mobile-theme-btn" class="icon-btn mobile-theme-btn" aria-label="Toggle Theme">
+            <span class="material-symbols-rounded">dark_mode</span>
+        </button>
+    </header>
+
+    <div class="layout">
+        <!-- Action Bar (Obsidian-style) -->
+        <aside class="action-bar">
+            <div class="action-bar__top">
+                <label for="sidebar-collapse" class="icon-btn action-btn" title="Toggle Sidebar">
+                    <span class="material-symbols-rounded sidebar-icon-collapsed">menu</span>
+                    <span class="material-symbols-rounded sidebar-icon-expanded">menu_open</span>
+                </label>
+                <!-- Top actions (e.g., Search) -->
+            </div>
+            <div class="action-bar__bottom">
+                <button id="theme-toggle-btn" class="icon-btn action-btn" title="Toggle Theme">
+                    <span class="material-symbols-rounded">dark_mode</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="nav">
+                <div class="nav-header">
+                    <a href="/" class="nav-logo">Nakli.Tech</a>
+                </div>
+                <div class="nav-content">
+                    <ul class="nav-list"><li class="nav-folder">
+                <input type="checkbox" id="folder-Random-Tech" class="folder-checkbox">
+                <label for="folder-Random-Tech" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">Random Tech</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/Random Tech/12-factor-app.html" class="nav-link file-link is-active">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">12-factor-app</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/bastion-servers.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bastion-servers</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/dns-over-tls.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">dns-over-tls</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/understanding-procfs.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">understanding-procfs</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/vim-macros-with-args.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">vim-macros-with-args</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/why-dns-uses-udp-if-its-unreliable.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">why-dns-uses-udp-if-its-unreliable</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-series" class="folder-checkbox">
+                <label for="folder-series" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">series</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/series/ultimate-shell-scripting-part-I.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">ultimate-shell-scripting-part-I</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-tutorials" class="folder-checkbox">
+                <label for="folder-tutorials" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">tutorials</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/tutorials/bloom-filter.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bloom-filter</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/gcloud-configurations.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">gcloud-configurations</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/my-vim-tmux-setup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">my-vim-tmux-setup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/mysql-physical-backup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">mysql-physical-backup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/python-collections-module.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">python-collections-module</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/setup-local-k8s-env-using-kind.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">setup-local-k8s-env-using-kind</span>
+                </a>
+              </li></ul>
+              </li></ul>
+                </div>
+                <footer class="sidebar-footer">
+                    <p>&copy; 2026 Nakli.Tech</p>
+                    <p>Built with ❤️ using <a href="https://github.com/shubhamoli/Patra" target="_blank">Patra</a></p>
+                </footer>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="markdown-body">
+                <header class="page-header"><h1 class="page-title">12-factor app methodologies and containerized environment</h1><div class="page-meta"><span class="page-date">17/07/2019</span><span class="page-read-time">6 min read</span><span class="page-words">1154 words</span></div><div class="page-tags"><span class="tag">Containers</span><span class="tag">Theory</span></div></header>
+                <p>12-Factor app methodology has now become a de-facto standard for building
+Software-as-a-service (SaaS) applications………</p>
+<p><em><strong>But Wait!…..I don’t write SaaS apps, I’m a Software developer whose task is to
+write services</strong></em>. Just tell me how can I apply
+these principles in my daily development tasks?</p>
+<p>Okay Okay! no problem…….let’s see the original principles first and see what
+each principle has to offer us for building modern cloud based web applications.</p>
+<p><strong>Trivia:</strong> The <a href="https://12factor.net/">original 12-factor app methodology</a> was drafted by engineers at
+Heroku and later on widely embraced by engineers around the globe.</p>
+<p><strong>Note:</strong> For this article we will consider Docker as default Container runtime and
+kubernetes as default container orchestration tool.</p>
+<p>So, let’s dive in.</p>
+<p>&nbsp; 
+&nbsp;</p>
+<h2>1. Codebase</h2>
+<p><strong>Original:</strong> Each app should have it’s own single codebase and this codebase should
+be tracked in Version Control systems like Git, subversion, etc. Although each
+service can have any number of deployments or running instances.</p>
+<p>If the codebase isn’t single then it is called a distributed system not an app
+and directly violates 12-Factor app Methodology.</p>
+<p><strong>Takeaway:</strong> It is easier to build the Docker image from a single codebase for
+deployment purposes. if your app spans over multiple codebases for a single
+service then each codebase can itself act as a 12-Factor app. <em>Problem solved</em> 😊</p>
+<p>&nbsp; 
+&nbsp; </p>
+<h2>2. Dependencies</h2>
+<p><strong>Original</strong>: Each app should explicitly declare its dependencies and should not
+rely on existence of system wide packages. These dependencies should be isolated
+from system installed packages leveraging some kind of isolation environment.</p>
+<p><strong>Lessons learnt:</strong></p>
+<ol>
+<li><p>In containerised environment, each build starts with a fresh base image like
+alpine linux and we require some sort of declarative dependency management +
+Dockerfile to bundle things together and get our final image ready to deploy.</p>
+</li>
+<li><p>Explicitly declaring dependencies with correct version/tag (not <code>:latest</code>) also
+ensures consistency across different systems and environments.</p>
+</li>
+</ol>
+<p>&nbsp;
+&nbsp;</p>
+<h2>3. Config</h2>
+<p><strong>Original:</strong> A config can be anything that varies between local, staging
+   or production. environments. For ex, Database host IP, AWS credentials,
+   Google API token, etc.</p>
+<p>12-Factor method. suggests that config should be stored as environment
+variables.</p>
+<p><em>Okay, I should practise this</em> as Docker Containers and Orchestration tools like
+Kubernetes has in-built support to inject environment variables in containers at
+run-time.</p>
+<p>&nbsp;
+&nbsp;</p>
+<h2>4. Backing Services</h2>
+<p>A 12 factor app should treat Backing service like Databases,
+   Memcache servers as attached resources and also a 12-factor app shouldn’t make
+   any distinction between local and third-party resources. Furthermore, no
+   change in codebase should be required when updating any of the backing
+   services.</p>
+<p><em>Okay! I got this,</em> Due to ephemeral nature of containers, the backing services should
+be treated as attached resources and service should work seamlessly even when
+new container/instance of backing service rolls up and other one terminates.</p>
+<p>&nbsp;
+&nbsp;</p>
+<h2>5. Build, Release and Run</h2>
+<p><strong>Original:</strong> Strictly separate Build, Release and Run stages.</p>
+<p><em>Gotcha!</em>, Dynamic nature of containers needs this kind of separation of concern.
+Image should be build and released with required config and run-time (or “run”
+stage) should not be dependent on Build and release stages as an image can be
+used to deploy infinite number of containers without building the image again.</p>
+<p>&nbsp;
+&nbsp;</p>
+<h2>6. Processes</h2>
+<p><strong>Original:</strong> Every app instance should be run in a separate stateless process
+   and no data should be shared between them using local filesystem and memory.
+   If any data needs to be persist it should be stored in a separate shared
+   database.</p>
+<p><em>Oh! Finally,</em> When you scale out your service by running multiple instances under
+a load balancer, you never expect that data stored in your local cache, memory
+or disk is available to your app even for very next request. Therefore, you need
+to write your code keeping statelessness in mind.</p>
+<p>&nbsp;
+&nbsp;</p>
+<h2>7. Port Binding</h2>
+<p><strong>Original:</strong> Export services via port binding. The twelve-factor
+   app is completely self-contained and does not rely on runtime injection of a
+   webserver into the execution environment to create a web-facing service. The
+   web app exports HTTP as a service by binding to a port, and listening to
+   requests coming in on that port.</p>
+<p><em>I know this, I know this</em> Docker and orchestration tools like Kubernetes
+encourage this practice for exposing services and I already know this. Great! 🙂</p>
+<p>&nbsp;
+&nbsp;</p>
+<h2>8. Concurrency</h2>
+<p><strong>Original:</strong> Scale out via process model. In a 12-Factor app,
+processes are first class citizen. The developer can architect their app to
+handle diverse workloads by assigning each type of work to a process type.
+For example, HTTP requests may be handled by a web process, and long-running
+background tasks handled by a worker process.</p>
+<p>But, but If your app is containerised then you don’t need to worry about this. This
+is it.</p>
+<p>&nbsp;
+&nbsp;</p>
+<h2>9. Disposability</h2>
+<p><strong>Original:</strong> The twelve-factor app’s processes are disposable,
+   meaning they can be started or stopped at a moment’s notice. This facilitates
+   fast elastic scaling, rapid deployment of code or config changes, and
+   robustness of production deploys. Processes should strive to minimize startup
+   time and focus on Graceful shutdown.</p>
+<p><em>Again, I know this</em> If your app is managed by orchestration tools like
+Kubernetes then you need not to worry about it, but still create your docker
+images as light as possible for faster boot-up. For best practices see this</p>
+<p>&nbsp;
+&nbsp;</p>
+<h2>10. Dev/prod parity</h2>
+<p><strong>Original:</strong> Keep development, staging, and production as similar as possible.</p>
+<p><em>My 2 Cents:</em> If you practice declarative style of deployments using Docker
+containers and kubernetes. Dev prod parity can be achieved to a significant
+level. And also, tools like docker-compose can help you to achieve parity to a
+significant extent.</p>
+<p>&nbsp;
+&nbsp;</p>
+<h2>11. Logs</h2>
+<p><strong>Original:</strong> Treat logs as event streams. Logs are the stream of
+    aggregated, time-ordered events collected from the output streams of all
+    running processes and backing services. each running process writes its
+    event stream, unbuffered, to stdout</p>
+<p><em>Oh! that’s why,</em> All log aggregators recommend to write your logs to stdout
+instead of a file because you can’t track file names for each app or you have to
+set some standard for naming log files. Also Docker has docker logs and
+kubernetes has kubectl logs which display logs from containers’ stdout.</p>
+<p>&nbsp;
+&nbsp;</p>
+<h2>12. Admin processes</h2>
+<p><strong>Original:</strong> Run admin/management tasks as one-off processes.
+    One-off admin processes should be run in an identical environment as the
+    regular long-running processes of the app. Admin code must ship with
+    application code to avoid synchronization issues.</p>
+<p><em>Again, Gotcha!</em>, Ephemeral containers with same image tag should be used to run
+admin task. Another way is to use docker exec -it command to execute a command
+directly inside the containers.</p>
+<p>&nbsp;
+&nbsp;</p>
+<h2>Conclusion</h2>
+<p>12-Factor methodology may seem a set of guidelines for developing
+SaaS applications but believe me they are the standard way to build any modern
+web applications for scale. Nowadays, even many tools like Docker, Kubernetes,
+etc are directly or in-directly built over these principles.</p>
+<p>&nbsp;</p>
+<p>#TillThenHappyCoding.</p>
+
+            </article>
+        </main>
+        
+        <!-- Overlay for mobile when menu is open -->
+        <label for="nav-toggle" class="nav-overlay"></label>
+    </div>
+</body>
+</html>

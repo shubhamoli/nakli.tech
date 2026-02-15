@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seamless switching b/w multiple projects using gcloud configurations</title>
+    <!-- Fonts: Inter + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Icons: Material Symbols Rounded -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <!-- Syntax Highlighting: highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <!-- Sidebar Collapse Toggle (Desktop) -->
+    <input type="checkbox" id="sidebar-collapse" class="sidebar-collapse-checkbox">
+    
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <label for="nav-toggle" class="nav-button" aria-label="Toggle Menu">
+            <span class="nav-icon"></span>
+        </label>
+        <a href="/" class="header-logo">Nakli.Tech</a>
+        <button id="mobile-theme-btn" class="icon-btn mobile-theme-btn" aria-label="Toggle Theme">
+            <span class="material-symbols-rounded">dark_mode</span>
+        </button>
+    </header>
+
+    <div class="layout">
+        <!-- Action Bar (Obsidian-style) -->
+        <aside class="action-bar">
+            <div class="action-bar__top">
+                <label for="sidebar-collapse" class="icon-btn action-btn" title="Toggle Sidebar">
+                    <span class="material-symbols-rounded sidebar-icon-collapsed">menu</span>
+                    <span class="material-symbols-rounded sidebar-icon-expanded">menu_open</span>
+                </label>
+                <!-- Top actions (e.g., Search) -->
+            </div>
+            <div class="action-bar__bottom">
+                <button id="theme-toggle-btn" class="icon-btn action-btn" title="Toggle Theme">
+                    <span class="material-symbols-rounded">dark_mode</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="nav">
+                <div class="nav-header">
+                    <a href="/" class="nav-logo">Nakli.Tech</a>
+                </div>
+                <div class="nav-content">
+                    <ul class="nav-list"><li class="nav-folder">
+                <input type="checkbox" id="folder-Random-Tech" class="folder-checkbox">
+                <label for="folder-Random-Tech" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">Random Tech</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/Random Tech/12-factor-app.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">12-factor-app</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/bastion-servers.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bastion-servers</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/dns-over-tls.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">dns-over-tls</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/understanding-procfs.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">understanding-procfs</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/vim-macros-with-args.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">vim-macros-with-args</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/why-dns-uses-udp-if-its-unreliable.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">why-dns-uses-udp-if-its-unreliable</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-series" class="folder-checkbox">
+                <label for="folder-series" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">series</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/series/ultimate-shell-scripting-part-I.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">ultimate-shell-scripting-part-I</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-tutorials" class="folder-checkbox">
+                <label for="folder-tutorials" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">tutorials</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/tutorials/bloom-filter.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bloom-filter</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/gcloud-configurations.html" class="nav-link file-link is-active">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">gcloud-configurations</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/my-vim-tmux-setup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">my-vim-tmux-setup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/mysql-physical-backup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">mysql-physical-backup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/python-collections-module.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">python-collections-module</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/setup-local-k8s-env-using-kind.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">setup-local-k8s-env-using-kind</span>
+                </a>
+              </li></ul>
+              </li></ul>
+                </div>
+                <footer class="sidebar-footer">
+                    <p>&copy; 2026 Nakli.Tech</p>
+                    <p>Built with ❤️ using <a href="https://github.com/shubhamoli/Patra" target="_blank">Patra</a></p>
+                </footer>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="markdown-body">
+                <header class="page-header"><h1 class="page-title">Seamless switching b/w multiple projects using gcloud configurations</h1><div class="page-meta"><span class="page-date">09/07/2023</span><span class="page-read-time">6 min read</span><span class="page-words">1051 words</span></div><div class="page-tags"><span class="tag">cloud</span><span class="tag">gcloud</span><span class="tag">cli</span></div></header>
+                <p>Struggle of switching between multiple GCP projects is actually real. In addition to that, making mistakes like running destrucutive commands in a wrong GCP project is also fairly common.</p>
+<p>In this article, we will see how we can utilize <code>gcloud</code> configurations to seamlessly switch between GCP projects without going back and forth to the GCP console to fetch the project ids and other info.</p>
+<p><strong>Note:</strong> We can have multiple configurations for a GCP project with different properties/contexts. For the sake of this article I&#39;ll use the term <em>project</em> but that should not limit us only to the GCP projects.</p>
+<p>&nbsp;</p>
+<h2>Default configuration</h2>
+<p>When we install <code>gcloud</code> a <code>default</code> configuration is created for us and most engineers from this point don&#39;t bother to configure further. Most of them still always rely on copy/pasting project ids and other info. (I&#39;ll bet on your Notes app 😛) everytime when working with <code>gcloud</code>.</p>
+<pre><code class="language-sh">$ gcloud config configurations list
+NAME         IS_ACTIVE  ACCOUNT            PROJECT           COMPUTE_DEFAULT_ZONE  COMPUTE_DEFAULT_REGION
+default      True       oli@example.com
+
+
+# and the usual gcloud command line would look like
+$ gcloud compute ssh instance-001 \
+     --project=oli-dev \
+     --region=europe-west4 \
+     --impersonate-service-account=${ADMIN_SA}
+</code></pre>
+<p>&nbsp;</p>
+<h2>Multiple configurations</h2>
+<p>Good news is - <code>gcloud</code> supports multiple configurations (kinda similar to the <code>aws</code> profiles) which makes switching between GCP projects/contexts a seamless experience.</p>
+<p>Let&#39;s see them in more detail:</p>
+<p>&nbsp;</p>
+<h3>Creating new configurations</h3>
+<pre><code class="language-sh"># Create new configurations for our 3 envs
+$ gcloud config configurations create dev
+$ gcloud config configurations create staging
+$ gcloud config configurations create prod
+</code></pre>
+<p>&nbsp;</p>
+<h3>Activating a new configuration</h3>
+<p>Although the <code>create</code> command automatically activates the configuration it has just created, but in case we want to switch to a different one you can use the following command.</p>
+<pre><code># The last one which got created was &quot;prod&quot;
+# so currently &quot;prod&quot; is the active one
+#
+# let&#39;s switch to the &quot;dev&quot;
+$ gcloud config configurations activate dev
+Activated [dev]
+</code></pre>
+<p>&nbsp;</p>
+<h3>Setting properties for the configurations</h3>
+<p>Now it&#39;s time to set some properties for each configuration which will set the context for a particular configuration.</p>
+<p>Tip: To list all the supported properties, use this command <code>$ gcloud config list --all</code></p>
+<p>There are two approaches to set these properties:</p>
+<ol>
+<li>Edit the configuration&#39;s file directly</li>
+<li>Use <code>gcloud</code> CLI to update these values</li>
+</ol>
+<p><strong>1. Edit the configuration file directly</strong></p>
+<p>By default in the *nix systems all these configurations reside in <code>$HOME/.config/gcloud/configurations</code>.</p>
+<pre><code class="language-sh">$ cd ~/.config/gcloud/configurations
+$ ls -l
+drwxr-xr-x   6 Oli  staff  192 Jul 10 09:31 .
+drwxr-xr-x  14 Oli  staff  448 Jul  7 13:04 ..
+-rw-r--r--   1 Oli  staff   44 Jul  3 11:31 config_default
+-rw-r--r--   1 Oli  staff    0 Jul  7 09:31 config_dev
+-rw-r--r--   1 Oli  staff    0 Jul  7 09:31 config_staging
+-rw-r--r--   1 Oli  staff    0 Jul  7 09:31 config_prod
+</code></pre>
+<p>We can directly edit these files and add some properties for these configurations in one go.</p>
+<p>An example configuration might look like</p>
+<pre><code>[core]
+account = oli@example.com
+disable_usage_reporting = True
+project = oli-dev
+
+[auth]
+impersonate_service_account = oli-dev-sa@oli-dev.iam.gserviceaccount.com
+
+[compute]
+region = europe-west4
+
+[container]
+cluster = cluster-001
+</code></pre>
+<p>Replace these properties with your values in your machine and you&#39;re good to go as soon as you save and quit.</p>
+<p><strong>2. Use <code>gcloud</code> CLI to set the properties</strong></p>
+<p><code>gcloud</code> cli also offers feature to set/unset these properties using CLI commands.</p>
+<pre><code># Make sure your desired configuration is activated
+$ gcloud config configurations activate dev
+$ gcloud config set project `&lt;project_id&gt;`
+$ gcloud config set compute/zone `&lt;zone&gt;`
+
+# Now point to a new configuration
+$ gcloud config configurations activate prod
+$ gcloud config set project `&lt;project_id&gt;`
+$ gcloud config set compute/zone `&lt;zone&gt;`
+
+# you can even unset these properties
+$ gcloud config unset project
+</code></pre>
+<p>You can edit all other configurations in the similar way or even prepare a script to set these programmatically if you have 10s of projects to manage.</p>
+<p>Once you&#39;re done, you need to re-login using <code>$ gcloud auth login</code>.</p>
+<p>&nbsp;</p>
+<h3>Switching between configuration</h3>
+<p>Finally after setting the properties, we are good to go now. To switch between GCP projects, we just need to activate the configuration for that particular project. Once done all the subsequent <code>gcloud</code> will use that configuration&#39;s properties as their context.</p>
+<pre><code class="language-sh">$ gcloud config configurations activate prod
+
+# For ex. - use gcloud to SSH into the instance-001
+# No need to specify --project and --region options
+# as they will picked from the configuration
+$ gcloud compute ssh instance-001
+
+# Move to dev, it automatically deactivates the prod
+$ gcloud config configurations activate dev
+ 
+# Now for the SSH command
+# project will be auto set to oli-dev
+# and region will be auto set to the europe-west4 region
+$ gcloud compute ssh instance-001
+</code></pre>
+<p>Apart from the above, most of the <code>gcloud</code> commands also support <code>--configuration=&lt;name&gt;</code>.</p>
+<pre><code class="language-sh">$ gcloud compute ssh instance-001 --configuration=dev
+</code></pre>
+<p>&nbsp;</p>
+<h2>Bonus Tip #1</h2>
+<p>You can use tools like <a href="https://direnv.net/">direnv</a> that will automtically set the appropriate ENV var as soon as you <code>cd</code> into a specific directory.</p>
+<p>This is particularly useful when you have IaC directories for each environment.</p>
+<pre><code class="language-sh">$ tree gcp/
+.
+├── dev/
+├── prod/
+├── staging/
+</code></pre>
+<p><code>direnv</code> setup would look like</p>
+<pre><code class="language-sh">$ cd dev/
+$ touch .envrc
+$ export CLOUDSDK_ACTIVE_CONFIG_NAME=dev
+$ direnv allow .
+
+$ cd ../prod/
+$ touch .envrc
+$ export CLOUDSDK_ACTIVE_CONFIG_NAME=prod
+$ direnv allow .
+</code></pre>
+<p>Now as soon as you change the directories your <code>gcloud</code> configuration should automatically point to the correct one. <code>direnv</code> also unsets the env var as soon as you are out from a directory so you don&#39;t need to worry about if you are working in the right context anymore.</p>
+<h2>Bonus Tip #2</h2>
+<p>Just for your convience, you can always print what&#39;s your current active configuration in your Shell promopt (or in the tmux&#39;s status bar). This will keep you always aware and might help you avoid executing destructive commands in a wrong project.</p>
+<pre><code class="language-sh">&gt; PS1=&quot;$PS1 ($(echo $CLOUDSDK_ACTIVE_CONFIG_NAME)) &quot;
+&gt; (dev) 
+</code></pre>
+<p>Add the above snippet in your <code>~/.bashrc</code> or <code>~/.bash_profile</code> to make it always available.</p>
+<hr>
+<p>I believe we learned something new today which will definitely be a productivity booster for the daily users of <code>gcloud</code> and from now on they will be able to smoothly switch between multiple GCP contexts.</p>
+<p>Till next time,</p>
+<p>#Ciao #HappyHacking</p>
+
+            </article>
+        </main>
+        
+        <!-- Overlay for mobile when menu is open -->
+        <label for="nav-toggle" class="nav-overlay"></label>
+    </div>
+</body>
+</html>

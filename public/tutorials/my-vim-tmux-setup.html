@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My vim+tmux based Terminal workflow</title>
+    <!-- Fonts: Inter + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Icons: Material Symbols Rounded -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <!-- Syntax Highlighting: highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <!-- Sidebar Collapse Toggle (Desktop) -->
+    <input type="checkbox" id="sidebar-collapse" class="sidebar-collapse-checkbox">
+    
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <label for="nav-toggle" class="nav-button" aria-label="Toggle Menu">
+            <span class="nav-icon"></span>
+        </label>
+        <a href="/" class="header-logo">Nakli.Tech</a>
+        <button id="mobile-theme-btn" class="icon-btn mobile-theme-btn" aria-label="Toggle Theme">
+            <span class="material-symbols-rounded">dark_mode</span>
+        </button>
+    </header>
+
+    <div class="layout">
+        <!-- Action Bar (Obsidian-style) -->
+        <aside class="action-bar">
+            <div class="action-bar__top">
+                <label for="sidebar-collapse" class="icon-btn action-btn" title="Toggle Sidebar">
+                    <span class="material-symbols-rounded sidebar-icon-collapsed">menu</span>
+                    <span class="material-symbols-rounded sidebar-icon-expanded">menu_open</span>
+                </label>
+                <!-- Top actions (e.g., Search) -->
+            </div>
+            <div class="action-bar__bottom">
+                <button id="theme-toggle-btn" class="icon-btn action-btn" title="Toggle Theme">
+                    <span class="material-symbols-rounded">dark_mode</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="nav">
+                <div class="nav-header">
+                    <a href="/" class="nav-logo">Nakli.Tech</a>
+                </div>
+                <div class="nav-content">
+                    <ul class="nav-list"><li class="nav-folder">
+                <input type="checkbox" id="folder-Random-Tech" class="folder-checkbox">
+                <label for="folder-Random-Tech" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">Random Tech</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/Random Tech/12-factor-app.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">12-factor-app</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/bastion-servers.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bastion-servers</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/dns-over-tls.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">dns-over-tls</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/understanding-procfs.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">understanding-procfs</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/vim-macros-with-args.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">vim-macros-with-args</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/why-dns-uses-udp-if-its-unreliable.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">why-dns-uses-udp-if-its-unreliable</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-series" class="folder-checkbox">
+                <label for="folder-series" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">series</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/series/ultimate-shell-scripting-part-I.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">ultimate-shell-scripting-part-I</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-tutorials" class="folder-checkbox">
+                <label for="folder-tutorials" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">tutorials</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/tutorials/bloom-filter.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bloom-filter</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/gcloud-configurations.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">gcloud-configurations</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/my-vim-tmux-setup.html" class="nav-link file-link is-active">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">my-vim-tmux-setup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/mysql-physical-backup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">mysql-physical-backup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/python-collections-module.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">python-collections-module</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/setup-local-k8s-env-using-kind.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">setup-local-k8s-env-using-kind</span>
+                </a>
+              </li></ul>
+              </li></ul>
+                </div>
+                <footer class="sidebar-footer">
+                    <p>&copy; 2026 Nakli.Tech</p>
+                    <p>Built with ❤️ using <a href="https://github.com/shubhamoli/Patra" target="_blank">Patra</a></p>
+                </footer>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="markdown-body">
+                <header class="page-header"><h1 class="page-title">My vim+tmux based Terminal workflow</h1><div class="page-meta"><span class="page-date">18/01/2020</span><span class="page-read-time">6 min read</span><span class="page-words">1116 words</span></div><div class="page-tags"><span class="tag">Vim</span><span class="tag">Tmux</span><span class="tag">Linux</span></div></header>
+                <p>&nbsp;</p>
+<p><strong>Trivia:</strong> It’s been 5 months since I’ve embraced Vim as my full-time IDE and ditched VSCode finally.</p>
+<p>Being a DevOps engineer and Cloud Admin, I spend a lot of time inside my
+Terminal; sometimes tailing logs, running playbooks, debugging Networking
+issues, and I had always used Vim for past 4 years to make small changes on
+remote machines.</p>
+<p>&nbsp; </p>
+<p>{{&lt; figure src=&quot;/images/terminal-screenshot.png&quot; title=&quot;My Terminal screenshot&quot; &gt;}}</p>
+<p><strong>My dotfiles:</strong> <a href="https://github.com/shubhamoli/dotfiles">https://github.com/shubhamoli/dotfiles</a></p>
+<p>&nbsp;</p>
+<h3>Why Vim? just for the sake of “Showing off” my nerdy side or I’m genuinely interested.</h3>
+<p>I’ve always heard that Vim is powerful, extensible and the last editor you’ll
+ever need. And, like everyone else I was also intimidated at first by its slow
+learning curve and to be honest I was afraid of re-wiring by muscle memory as
+it’s not easy to get out of your comfort zone.</p>
+<p>Vim keybindings and modes are dope! <em>hands down</em>, but as they say – Rome wasn’t built in a
+single day, similarly getting cool with Vim keybindings requires your time to
+invest in. Once you are comfortable then it’s not just text-editing anymore
+it becomes a lifestyle.</p>
+<p>As I was already using Vim for a few years so finally in September 2019 I
+decided to dive deeper and <em>hallelujah!</em>, configured my Vim, to suit my needs and
+transformed it as my full-time IDE and never looked back again.</p>
+<p><strong>What to do to feel at-home with Vim? after learning how to quit Vim 😛</strong></p>
+<p>As this is not a detailed Vim tutorial in any sense — following is my approach
+which I used while going deeper into Vim and you can also follow this too to
+not get frustrated by so called “grumpy” Vim.</p>
+<p><strong>#1</strong> Change some default settings to make Vim more fancy like</p>
+<pre><code>// file:  ~/.vimrc
+
+set nocompatible                     &quot; no compatibility with old vi
+filetype plugin indent on            &quot; enables &quot;detection&quot;, &quot;plugin&quot; and &quot;indent&quot;
+syntax enable                        &quot; syntax highlighting based on filetype
+set relativenumber                   &quot; line numbers (relative to cursor) on
+set ttyfast                          &quot; enable for modern terminals
+set hidden                           &quot; allow switching buffers without saving
+set backspace=2                      &quot; let backspace behave like backspace
+set backspace=indent,eol,start
+set clipboard=unnamed                &quot; map system clipboard with Vim&#39;s
+set incsearch                        &quot; show match as you type
+set autoident                        &quot; autoident using VIM default settings
+set ignorecase smartcase             &quot; case-insensitive search
+set tabstop=4 shiftwidth=4           &quot; set your tab width
+set expandtab                        &quot; convert tabs to spaces
+set encoding=UTF-8                   &quot; encoding to utf-8
+set t_Co=256                         &quot; enable 256-colors
+set termguicolors                    &quot; enable true colors support
+
+// Install a plugin manager
+You can have a look at VimPlug: https://github.com/junegunn/vim-plug
+</code></pre>
+<p><strong>#2</strong> Map your <code>Caps</code> key to <code>Esc</code> key, so that switching between modes becomes very
+easy. Your left pinky is perfect for switching between modes. And, who uses
+<code>Caps</code> anyway.</p>
+<p><strong>#3</strong> Disable Arrow keys completely. Yes! do it now, it’ll force you to learn Vim’s
+motion keys</p>
+<pre><code>noremap &lt;Up&gt; &lt;Nop&gt;
+noremap &lt;Down&gt; &lt;Nop&gt;
+noremap &lt;Left&gt; &lt;Nop&gt;
+noremap &lt;Right&gt; &lt;Nop&gt;
+noremap! &lt;Down&gt; &lt;Nop&gt;
+noremap! &lt;Left&gt; &lt;Nop&gt;
+noremap! &lt;Right&gt; &lt;Nop&gt;
+noremap! &lt;Up&gt; &lt;Nop&gt;
+</code></pre>
+<p><strong>#4</strong> You can always use <code>j</code>, <code>k</code> (also see #5) for moving vertically but always
+prefer word-wise movements (<code>w</code>, <code>W</code>, <code>b</code>, <code>B</code>) over character based (<code>h</code> and <code>l</code>) to move
+horizontally in a line.</p>
+<p><strong>#5</strong> OR, use <code>(</code> and <code>{</code> to move through sentences and paragraphs and <code>[m</code> and <code>]m</code> to
+move method/function to method.</p>
+<p><strong>#6</strong> Best it to use <code>f&lt;x&gt;</code> to find a character in a line (ex. <code>f=</code> to move cursor to assignment
+operator) and then start moving word by word.</p>
+<p><strong>#7</strong> use <code>ci(</code> or <code>ci&quot;</code> to change inside a parenthesis or quote (great for
+programmers). The idea here is to learn more about text-objects</p>
+<p><strong>#8</strong> Use Following Plugins from day one</p>
+<pre><code>Plug &#39;scrooloose/nerdtree&#39;
+Plug &#39;vim-airline/vim-airline&#39;
+Plug &#39;tpope/vim-fugitive&#39;
+Plug &#39;airblade/vim-gitgutter&#39;
+Plug &#39;kien/ctrlp.vim&#39;
+Plug &#39;jiangmiao/auto-pairs&#39;
+Plug &#39;tpope/vim-surround&#39;
+</code></pre>
+<p><strong>#9</strong> Install an Auto-Complete engine like <code>YouCompleteMe</code> or <code>CoC.nvim</code> so that it
+Vim can get some IntelliSense and you can get less tense</p>
+<p><strong>#10</strong> Visit VimAwesome (<a href="https://vimawesome.com/">https://vimawesome.com/</a>) for exhaustive list of Vim
+Plugins.</p>
+<p><strong>Important:</strong> Search for “Vim dotfiles Github” on Google and Watch videos related
+to Vim on YouTube to learn more about how other experience devs have customised their Vim and
+also to know more about the capabilities of Vim and to know upto which extent you can
+customize it.</p>
+<p><strong>Most Important:</strong> How un-easy it feels to point your fingers on the right keys.
+#Justdoit but please do not revert to your previous IDE or editor — it takes
+time to establish new muscle memory.</p>
+<p>&nbsp;</p>
+<p><strong>Note:</strong> Always remember your Vim is only yours. Take inspiration from everyone
+but decide on your own like which key and mapping is most suitable for you. In
+my case, <code>/</code> is very accessible instead of <code>,</code> key (which many vimmers prefer as
+their <code>&lt;Leader&gt;</code> key) that’s why I have mapped <code>/</code> as my <code>&lt;Leader&gt;</code>.</p>
+<p>&nbsp;</p>
+<h2>Why tmux?</h2>
+<p>Vim is super, it provides amazing text-editing experience out-of-the-box but in
+real-world software development we have to have some grunt tasks running in
+parallel (like web server, tests, build tools, watchers, etc) and also a
+developer usually works on multiple projects/repos at a time, so this is where
+Tmux comes into play to make this context-switching more efficient.</p>
+<p>Tmux (stands for “terminal multiplexer”) is a utility which enables number of
+pseudo-terminals to be created, managed and accessed from a single screen.</p>
+<p>Both, Vim and Tmux, have the concept of splits or panes, so in conjunction they 
+work so cohesively like you’ll never feel like using two entirely different
+programs.</p>
+<p>For example – You can have a workflow with dedicated tmux session for each project
+you’re working on and then in each tmux session you can have multiple windows with
+Vim, web-server, tests, build tools, etc running in context of that project.
+Switching between sessions and windows is just a matter of pressing a HotKey.</p>
+<p>With <a href="https://github.com/christoomey/vim-tmux-navigator">https://github.com/christoomey/vim-tmux-navigator</a> (highly recommended
+plugin for both Vim and tmux) movement between panes and windows created by Vim
+and tmux gets very seamless, and it makes the workflow smooth like an IDE.</p>
+<p>Many people ask me – iTerm2 does that too, then why tmux? The reason for
+preferring tmux over iTerm2 is that iTerm2 is not available for Linux which
+means it’s not ubiquitous and secondly tmux is again highly customisable like
+Vim.</p>
+<p><strong>For the ending Note:</strong> Although, Vim keybindings and tmux intergration is
+definitely worth experiencing but all I can say is never include Vim and Tmux in your
+workflow for the sake of it or by getting neurotically obsessed and please do
+it whence you feel that it’s right time to switch. </p>
+<p><em><strong>Remember, never switch to Vim when you’ve deadlines to meet</strong></em> 😉</p>
+<p>&nbsp;</p>
+<p>#JustForChange #HappyLearning</p>
+
+            </article>
+        </main>
+        
+        <!-- Overlay for mobile when menu is open -->
+        <label for="nav-toggle" class="nav-overlay"></label>
+    </div>
+</body>
+</html>
