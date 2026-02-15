@@ -12,8 +12,6 @@ summary:
 ---
 
 
-&nbsp;
-
 12-Factor app methodology has now become a de-facto standard for building
 Software-as-a-service (SaaS) applications………
 

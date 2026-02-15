@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup a 'sane' K8s cluster in local env using KinD</title>
+    <!-- Fonts: Inter + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Icons: Material Symbols Rounded -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <!-- Syntax Highlighting: highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <!-- Sidebar Collapse Toggle (Desktop) -->
+    <input type="checkbox" id="sidebar-collapse" class="sidebar-collapse-checkbox">
+    
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <label for="nav-toggle" class="nav-button" aria-label="Toggle Menu">
+            <span class="nav-icon"></span>
+        </label>
+        <a href="/" class="header-logo">Nakli.Tech</a>
+        <button id="mobile-theme-btn" class="icon-btn mobile-theme-btn" aria-label="Toggle Theme">
+            <span class="material-symbols-rounded">dark_mode</span>
+        </button>
+    </header>
+
+    <div class="layout">
+        <!-- Action Bar (Obsidian-style) -->
+        <aside class="action-bar">
+            <div class="action-bar__top">
+                <label for="sidebar-collapse" class="icon-btn action-btn" title="Toggle Sidebar">
+                    <span class="material-symbols-rounded sidebar-icon-collapsed">menu</span>
+                    <span class="material-symbols-rounded sidebar-icon-expanded">menu_open</span>
+                </label>
+                <!-- Top actions (e.g., Search) -->
+            </div>
+            <div class="action-bar__bottom">
+                <button id="theme-toggle-btn" class="icon-btn action-btn" title="Toggle Theme">
+                    <span class="material-symbols-rounded">dark_mode</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="nav">
+                <div class="nav-header">
+                    <a href="/" class="nav-logo">Nakli.Tech</a>
+                </div>
+                <div class="nav-content">
+                    <ul class="nav-list"><li class="nav-folder">
+                <input type="checkbox" id="folder-Random-Tech" class="folder-checkbox">
+                <label for="folder-Random-Tech" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">Random Tech</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/Random Tech/12-factor-app.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">12-factor-app</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/bastion-servers.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bastion-servers</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/dns-over-tls.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">dns-over-tls</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/understanding-procfs.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">understanding-procfs</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/vim-macros-with-args.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">vim-macros-with-args</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/why-dns-uses-udp-if-its-unreliable.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">why-dns-uses-udp-if-its-unreliable</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-series" class="folder-checkbox">
+                <label for="folder-series" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">series</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/series/ultimate-shell-scripting-part-I.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">ultimate-shell-scripting-part-I</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-tutorials" class="folder-checkbox">
+                <label for="folder-tutorials" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">tutorials</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/tutorials/bloom-filter.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bloom-filter</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/gcloud-configurations.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">gcloud-configurations</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/my-vim-tmux-setup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">my-vim-tmux-setup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/mysql-physical-backup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">mysql-physical-backup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/python-collections-module.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">python-collections-module</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/setup-local-k8s-env-using-kind.html" class="nav-link file-link is-active">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">setup-local-k8s-env-using-kind</span>
+                </a>
+              </li></ul>
+              </li></ul>
+                </div>
+                <footer class="sidebar-footer">
+                    <p>&copy; 2026 Nakli.Tech</p>
+                    <p>Built with ❤️ using <a href="https://github.com/shubhamoli/Patra" target="_blank">Patra</a></p>
+                </footer>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="markdown-body">
+                <header class="page-header"><h1 class="page-title">Setup a 'sane' K8s cluster in local env using KinD</h1><div class="page-meta"><span class="page-date">04/01/2020</span><span class="page-read-time">4 min read</span><span class="page-words">676 words</span></div><div class="page-tags"><span class="tag">Containers</span><span class="tag">K8s</span></div></header>
+                <p>&nbsp;</p>
+<p><em><strong>Are you still using Minikube in 2020 to provision your local Kubernetes environment?</strong></em></p>
+<p>Don’t you love the idea of having a multi-Node cluster for your local env too?</p>
+<p>Idea of having Docker Containers as “Nodes”? Pre-installed binaries and tools to
+test, debug and understand the wizardry of K8s.</p>
+<p>If all of the above is intriguing you then we’re cool and ready to learn
+more about this amazing tool called <code>KinD</code> (Kubernetes in Docker 😊).</p>
+<p>Without much ado, let’s staaart!</p>
+<p>&nbsp;</p>
+<h2>Installation</h2>
+<p>On *NIX like machine:</p>
+<pre><code class="language-bash">$ curl -Lo ./kind https://github.com/kubernetes-sigs/kind/releases/download/v0.6.1/kind-$(uname)-amd64
+
+$ chmod +x ./kind
+
+$ mv ./kind /usr/local/bin/kind
+
+$ kind version
+kind v0.6.1 go1.13.4 darwin/amd64
+</code></pre>
+<p>For installation on other OSs and more <a href="https://kind.sigs.k8s.io/docs/user/quick-start/#installation">see this</a></p>
+<p>&nbsp;</p>
+<h2>Creating cluster</h2>
+<p>Creating cluster on KinD is as easy as <code>$ kind create cluster</code> but <em>wait!</em> don’t get
+excited as this command will bootstrap the cluster using default settings
+like single node cluster, &quot;kind&quot; as cluster’s context name, etc which we surely want to avoid if we
+need a sane cluster.</p>
+<p><strong>Trivia:</strong> As we already know that <code>KinD</code> uses docker containers as “Nodes” therefore
+by default it uses its custom <a href="https://kind.sigs.k8s.io/docs/design/node-image/">Node Image</a> for creating “Nodes”.</p>
+<pre><code class="language-bash"># file: foo-bar-cluster-conf.yml
+
+---
+# HA 3 node control plane and 3 worker nodes cluster config
+
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+- role: control-plane
+- role: control-plane
+- role: worker
+- role: worker
+- role: worker
+
+
+# Now, we&#39;ll create the cluster with custom context name and config
+$ kind create cluster --name foo-bar --wait 2m --config foo-bar-cluster-conf.yml
+
+
+# confirm that cluster is setup
+$ kubectl get nodes
+NAME                     STATUS   ROLES    AGE    VERSION
+foo-bar-control-plane    Ready    master   105m   v1.16.3
+foo-bar-control-plane2   Ready    master   104m   v1.16.3
+foo-bar-control-plane3   Ready    master   103m   v1.16.3
+foo-bar-worker           Ready    &lt;none&gt;   102m   v1.16.3
+foo-bar-worker2          Ready    &lt;none&gt;   102m   v1.16.3
+foo-bar-worker3          Ready    &lt;none&gt;   102m   v1.16.3
+</code></pre>
+<h3>Deploying app</h3>
+<p>If all goes well, then we will see that our cluster is setup properly. Now it’s time to
+deploy apps onto this freshly created cluster. <em>Yay!, let’s do it.</em></p>
+<pre><code class="language-bash"># pulling hello-kubernetes app from github
+$ kubectl apply -f https://raw.githubusercontent.com/paulbouwer/hello-kubernetes/master/yaml/hello-kubernetes.yaml
+
+# Check pods are running or not
+$ kubectl get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+hello-kubernetes-5655b546f8-ckw9w   1/1     Running   0          57s
+hello-kubernetes-5655b546f8-mthl2   1/1     Running   0          57s
+hello-kubernetes-5655b546f8-strxb   1/1     Running   0          57s
+
+# All good, now confirm nodes on which pods are deployed (few columns are not shown)
+$ kubectl get pods -o wide
+NAME                                IP           NODE              
+hello-kubernetes-5655b546f8-ckw9w   10.244.4.2   foo-bar-worker    
+hello-kubernetes-5655b546f8-mthl2   10.244.3.2   foo-bar-worker2 
+hello-kubernetes-5655b546f8-strxb   10.244.5.2   foo-bar-worker3
+</code></pre>
+<p>And it&#39;s done.</p>
+<p><strong>Tip:</strong> - To go inside a “Node” just do</p>
+<p><code>$ docker exec -it foo-bar-worker2 bash</code> and boom, you’re inside a worker node.</p>
+<p>&nbsp;
+&nbsp;</p>
+<p><strong>Okay Okay, now this’s cool but what else <code>KinD</code> has to offer?</strong></p>
+<p>Apart from setting up a multi-node cluster using Docker containers as “Nodes”,
+which is something very cool <em>mind you</em>, <code>KinD</code> has few other things to offer as a tool.</p>
+<p>After SSHing/entering in one of your nodes, it has several tools installed for
+debugging and playing with Kubernetes itself such as <code>crictl</code>, <code>iptables-save</code>,
+etc.  These binaries are installed by default which IMO are very much needed when you want to go
+real deep into kubernetes, and curious to know how things are
+working under the hood to provide you such a seamless orchestration.</p>
+<p>To learn more about crictl see
+<a href="https://kubernetes.io/docs/tasks/debug-application-cluster/crictl/">https://kubernetes.io/docs/tasks/debug-application-cluster/crictl/</a> and same goes
+for other kubernetes resources and tools.</p>
+<p>Although, managing infrastructure using YMLs is new fad! but when it comes to
+debugging an issue then shit goes real and you have to have these concepts known
+to you beforehand in order to actually start a debugging session otherwise
+you&#39;ll be lost.</p>
+<h2>Conclusion</h2>
+<p>Although Minikube has served humanity very well ;-p, but <code>KinD</code> is superior
+alternative to it for provisioning local k8s cluster with multi-node setup. IMO, Docker containers as
+“Nodes” is itself a very creative idea and it also makes sense and seems quite sane to me in
+the era where containers are first class citizens.</p>
+<p>For complete documentation on <code>KinD</code> visit: <a href="https://kind.sigs.k8s.io/">https://kind.sigs.k8s.io/</a></p>
+<p>Finally, to clean everything type <code>$ kind delete cluster</code></p>
+<p>#TillThenHappyCoding</p>
+
+            </article>
+        </main>
+        
+        <!-- Overlay for mobile when menu is open -->
+        <label for="nav-toggle" class="nav-overlay"></label>
+    </div>
+</body>
+</html>

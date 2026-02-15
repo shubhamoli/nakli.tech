@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bastion servers as frontline security for your infrastructure</title>
+    <!-- Fonts: Inter + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Icons: Material Symbols Rounded -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <!-- Syntax Highlighting: highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <!-- Sidebar Collapse Toggle (Desktop) -->
+    <input type="checkbox" id="sidebar-collapse" class="sidebar-collapse-checkbox">
+    
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <label for="nav-toggle" class="nav-button" aria-label="Toggle Menu">
+            <span class="nav-icon"></span>
+        </label>
+        <a href="/" class="header-logo">Nakli.Tech</a>
+        <button id="mobile-theme-btn" class="icon-btn mobile-theme-btn" aria-label="Toggle Theme">
+            <span class="material-symbols-rounded">dark_mode</span>
+        </button>
+    </header>
+
+    <div class="layout">
+        <!-- Action Bar (Obsidian-style) -->
+        <aside class="action-bar">
+            <div class="action-bar__top">
+                <label for="sidebar-collapse" class="icon-btn action-btn" title="Toggle Sidebar">
+                    <span class="material-symbols-rounded sidebar-icon-collapsed">menu</span>
+                    <span class="material-symbols-rounded sidebar-icon-expanded">menu_open</span>
+                </label>
+                <!-- Top actions (e.g., Search) -->
+            </div>
+            <div class="action-bar__bottom">
+                <button id="theme-toggle-btn" class="icon-btn action-btn" title="Toggle Theme">
+                    <span class="material-symbols-rounded">dark_mode</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="nav">
+                <div class="nav-header">
+                    <a href="/" class="nav-logo">Nakli.Tech</a>
+                </div>
+                <div class="nav-content">
+                    <ul class="nav-list"><li class="nav-folder">
+                <input type="checkbox" id="folder-Random-Tech" class="folder-checkbox">
+                <label for="folder-Random-Tech" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">Random Tech</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/Random Tech/12-factor-app.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">12-factor-app</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/bastion-servers.html" class="nav-link file-link is-active">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bastion-servers</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/dns-over-tls.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">dns-over-tls</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/understanding-procfs.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">understanding-procfs</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/vim-macros-with-args.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">vim-macros-with-args</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/why-dns-uses-udp-if-its-unreliable.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">why-dns-uses-udp-if-its-unreliable</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-series" class="folder-checkbox">
+                <label for="folder-series" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">series</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/series/ultimate-shell-scripting-part-I.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">ultimate-shell-scripting-part-I</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-tutorials" class="folder-checkbox">
+                <label for="folder-tutorials" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">tutorials</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/tutorials/bloom-filter.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bloom-filter</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/gcloud-configurations.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">gcloud-configurations</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/my-vim-tmux-setup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">my-vim-tmux-setup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/mysql-physical-backup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">mysql-physical-backup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/python-collections-module.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">python-collections-module</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/setup-local-k8s-env-using-kind.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">setup-local-k8s-env-using-kind</span>
+                </a>
+              </li></ul>
+              </li></ul>
+                </div>
+                <footer class="sidebar-footer">
+                    <p>&copy; 2026 Nakli.Tech</p>
+                    <p>Built with ❤️ using <a href="https://github.com/shubhamoli/Patra" target="_blank">Patra</a></p>
+                </footer>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="markdown-body">
+                <header class="page-header"><h1 class="page-title">Bastion servers as frontline security for your infrastructure</h1><div class="page-meta"><span class="page-date">03/03/2020</span><span class="page-read-time">4 min read</span><span class="page-words">766 words</span></div><div class="page-tags"><span class="tag">Networking</span><span class="tag">Security</span><span class="tag">Infrastructure</span></div></header>
+                <p>&nbsp;
+&nbsp;</p>
+<p><strong>Disclaimer:</strong> This article is in regards with cloud-native infrastructure which
+means all machines, storage, network ACLs, firewalls, etc are virtually managed
+and provided by a cloud provider on a shared-responsibility model.</p>
+<p>As cloud admins we all know that, with ever growing cloud-based infrastructure,
+it becomes tougher and tougher to reduce administrative access points and ensure
+protection against unwanted and crooked visitors.</p>
+<p>Therefore, it is highly recommended to introduce security concepts like Bastion
+Servers, Firewalls, Private Subnets, VPN, ACLs, etc in your infrastructure as
+early as possible. Since, covering all of these is beyond the scope of this
+article so we’ll just focus on Bastion Servers this time.</p>
+<p>&nbsp;</p>
+<h2>What is a Bastion Server?</h2>
+<p>Bastion server is a intermediate host (for administrative entrypoints) between your private network and public
+Internet. It acts as a frontline security for your infrastructure. </p>
+<p>Admins generally use bastion host as a proxy to access systems behind a protected network or a
+firewall. Systems inside firewall can only be accessed (admin access) via
+hopping through one of the Bastion hosts.</p>
+<p>Since, Bastion servers reside in DMZ (demilitarized zone) or outside security
+premises of your network therefore they requires special hardened configuration
+so that they themselves can’t be broken.</p>
+<p><strong>For instances to be used as Bastion host, It is recommended that:</strong></p>
+<ul>
+<li>The instance you use should be purpose-built and that you use it only as a bastion and not for anything else.</li>
+<li>Open only 22 port (SSH’s default port) and that too for trusted IP addresses only.</li>
+<li>Setup a logging server for SSH Access logs</li>
+<li>Always have more than one Bastion (ideally in each AZs)</li>
+<li>Enable SE linux for more tightened security</li>
+<li>Never store Private keys in Bastion Servers</li>
+<li>For more on OS hardening Click here</li>
+</ul>
+<p><strong>How does Bastion hosts helped me?</strong></p>
+<p>For me, I manage our infra. in AWS, and access to the administrative ports like
+22 is disabled for public and it is only permitted from Bastion hosts.
+Therefore, in our case bastion hosts are primarily used as a proxy for SSHing
+into the instances in our VPC [in both public and private subnets].</p>
+<p>And, also sometimes we use it as a tunnel to gain temporary access to ports
+other than 22 without exposing them to any public network.</p>
+<p>Integrating Bastion hosts – facilitates the following:</p>
+<ul>
+<li>Centralised and single source of truth for administrative accesses</li>
+<li>Especially, SSH access to the instances is only through Bastion hosts</li>
+<li>Easy to add/remove/manage SSH keys when a dev joins or leaves the organisation</li>
+<li>All instances except load balancers can be reside in private subnets</li>
+<li>Clean security group configuration for instances</li>
+<li>Easy to integrate with VPN, just restrict the access of Bastion hosts itself from the company’s VPN.</li>
+</ul>
+<p>&nbsp;</p>
+<h2>How to access instances through Bastion?</h2>
+<p>There are two methods:</p>
+<h3>Without agent-forwarding</h3>
+<p>The idea here is that you copy your local machine’s public key in your bastion’s
+authorized_key file and same goes for putting Bastion hosts public key in
+authorized_key file of subsequent instances.</p>
+<p>Note: Since OpenSSH 8.2/8.2p1 release Ed25519 algorithm is recommended over RSA</p>
+<p>Then to SSH into a instance:</p>
+<pre><code class="language-bash"># 1. you first SSH into Bastion
+$ ssh &lt;user&gt;@&lt;bastion_public_ip&gt;
+
+# 2. and from Bastion server you hop into private instance
+$ ssh &lt;user&gt;@&lt;instance_A&#39;s_private_ip&gt;
+</code></pre>
+<h3>With agent forwarding</h3>
+<p>Since, SSH is amazing!, and SSH also has a feature of agent-forwarding which
+allows forwarding any private key from development machine to Bastion and
+Bastion will use that private key to SSH into next instances.</p>
+<p>With agent-forwarding you don’t have to explicitly put Bastion host’s key in
+your Private instances and also you don’t have to put your .pem files in Bastion
+Host.</p>
+<p>This method is more commonly used when you create a fresh instance and you’re
+accessing it for the first time to provision it using .pem file.</p>
+<pre><code class="language-bash"># 1. Start agent in background
+$ eval &quot;$(ssh-agent -s)&quot;
+
+# 2. Add your private key 
+$ ssh-add -K /path/to/pem/file
+
+# 3. Confirm whether key is added or not 
+$ ssh-add -L
+
+# 4. If all goes well, SSH into bastion with -A flag 
+$ ssh -A &lt;user&gt;@&lt;bastion_public_ip&gt;
+
+# 5. Then from bastion SSH hop into desired instance
+$ ssh &lt;user&gt;@&lt;instance_private_ip&gt;
+</code></pre>
+<p>&nbsp;</p>
+<h2>Conclusion</h2>
+<p>Till now, I think you would got a fair idea about What Bastion Hosts are and how
+well they can act as frontline security for your infrastructure. Apart from
+frontline security they also reduce the pain of controlling and managing
+administrative access points to any private network behind a firewall.</p>
+<p>&nbsp;
+&nbsp;</p>
+<p>#HopeItHelps  #TillThenHappyCoding</p>
+
+            </article>
+        </main>
+        
+        <!-- Overlay for mobile when menu is open -->
+        <label for="nav-toggle" class="nav-overlay"></label>
+    </div>
+</body>
+</html>

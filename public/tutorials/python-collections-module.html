@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python collections module</title>
+    <!-- Fonts: Inter + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Icons: Material Symbols Rounded -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <!-- Syntax Highlighting: highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <!-- Sidebar Collapse Toggle (Desktop) -->
+    <input type="checkbox" id="sidebar-collapse" class="sidebar-collapse-checkbox">
+    
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <label for="nav-toggle" class="nav-button" aria-label="Toggle Menu">
+            <span class="nav-icon"></span>
+        </label>
+        <a href="/" class="header-logo">Nakli.Tech</a>
+        <button id="mobile-theme-btn" class="icon-btn mobile-theme-btn" aria-label="Toggle Theme">
+            <span class="material-symbols-rounded">dark_mode</span>
+        </button>
+    </header>
+
+    <div class="layout">
+        <!-- Action Bar (Obsidian-style) -->
+        <aside class="action-bar">
+            <div class="action-bar__top">
+                <label for="sidebar-collapse" class="icon-btn action-btn" title="Toggle Sidebar">
+                    <span class="material-symbols-rounded sidebar-icon-collapsed">menu</span>
+                    <span class="material-symbols-rounded sidebar-icon-expanded">menu_open</span>
+                </label>
+                <!-- Top actions (e.g., Search) -->
+            </div>
+            <div class="action-bar__bottom">
+                <button id="theme-toggle-btn" class="icon-btn action-btn" title="Toggle Theme">
+                    <span class="material-symbols-rounded">dark_mode</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="nav">
+                <div class="nav-header">
+                    <a href="/" class="nav-logo">Nakli.Tech</a>
+                </div>
+                <div class="nav-content">
+                    <ul class="nav-list"><li class="nav-folder">
+                <input type="checkbox" id="folder-Random-Tech" class="folder-checkbox">
+                <label for="folder-Random-Tech" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">Random Tech</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/Random Tech/12-factor-app.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">12-factor-app</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/bastion-servers.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bastion-servers</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/dns-over-tls.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">dns-over-tls</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/understanding-procfs.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">understanding-procfs</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/vim-macros-with-args.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">vim-macros-with-args</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/why-dns-uses-udp-if-its-unreliable.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">why-dns-uses-udp-if-its-unreliable</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-series" class="folder-checkbox">
+                <label for="folder-series" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">series</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/series/ultimate-shell-scripting-part-I.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">ultimate-shell-scripting-part-I</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-tutorials" class="folder-checkbox">
+                <label for="folder-tutorials" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">tutorials</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/tutorials/bloom-filter.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bloom-filter</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/gcloud-configurations.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">gcloud-configurations</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/my-vim-tmux-setup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">my-vim-tmux-setup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/mysql-physical-backup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">mysql-physical-backup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/python-collections-module.html" class="nav-link file-link is-active">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">python-collections-module</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/setup-local-k8s-env-using-kind.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">setup-local-k8s-env-using-kind</span>
+                </a>
+              </li></ul>
+              </li></ul>
+                </div>
+                <footer class="sidebar-footer">
+                    <p>&copy; 2026 Nakli.Tech</p>
+                    <p>Built with ❤️ using <a href="https://github.com/shubhamoli/Patra" target="_blank">Patra</a></p>
+                </footer>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="markdown-body">
+                <header class="page-header"><h1 class="page-title">Python collections module</h1><div class="page-meta"><span class="page-date">07/11/2019</span><span class="page-read-time">5 min read</span><span class="page-words">993 words</span></div><div class="page-tags"><span class="tag">Python</span></div></header>
+                <p>&nbsp;</p>
+<p>Python’s collections module is often ignored and sidelined by most of the python programmers
+but it contains few useful container data types which can come handy in some
+special scenarios and use-cases.</p>
+<p>Let’s dig in!</p>
+<p>As of writing, Wed 6 Nov 2019, and v3.8 — Python has total of 9 container Data types:</p>
+<ol>
+<li><code>namedtuple()</code></li>
+<li><code>deque</code></li>
+<li><code>ChainMap</code></li>
+<li><code>Counter</code></li>
+<li><code>defaultdict</code></li>
+<li><code>OrderedDict</code></li>
+<li><code>UserDict</code></li>
+<li><code>UserList</code></li>
+<li><code>UserString</code></li>
+</ol>
+<p>We’ll now see what each one has to offer and which use-case they satisfy.</p>
+<p>&nbsp;</p>
+<h2>namedtuple()</h2>
+<p>namedtuple() is actually a factory function to create <code>tuple</code> with named fields.
+Since, there is no mention of private scope/properties/variables in Python’s
+definition of OOPS (although we can enforce it to some extent using meta-classes
+and <code>__setattr_</code> etc but still true immutability is missing). Now here comes
+<code>namedtuple</code> which provides us the succinct way to create immutable attributes.</p>
+<p>We can access our elements by either using tuple like numbered index or key
+based lookup. It can be useful where we have a requirement to make class
+attributes immutable.</p>
+<pre><code class="language-Python">&gt;&gt;&gt; import collections
+&gt;&gt;&gt; Student = collections.namedtuple(&#39;Student&#39;, [&#39;name&#39;,&#39;age&#39;]) 
+&gt;&gt;&gt;
+&gt;&gt;&gt; s = Student(&#39;Oli&#39;, &#39;25&#39;)
+&gt;&gt;&gt;
+&gt;&gt;&gt; print(s[1])           # outputs 25
+&gt;&gt;&gt;
+&gt;&gt;&gt; print(s.name)         # Oli
+&gt;&gt;&gt;
+&gt;&gt;&gt; s.name = &#39;Shubham&#39;    # AttributeError
+</code></pre>
+<p>&nbsp;</p>
+<h2>deque</h2>
+<p>It is the implementation of “double-ended” queues in Python and is pronounced as
+“deck”. It supports <code>append</code> and <code>pop</code> in order of <code>O(1)</code> in
+either direction. If <code>maxlen</code> attribute is not specified or is <code>None</code>, deques may
+grow to an arbitrary length. Once it is full, it will start discarding elements
+from other end during an insertion.</p>
+<p>Regarding its use-case we all know how and when <code>deques</code> are used.</p>
+<pre><code class="language-Python">&gt;&gt;&gt; from collections import deque
+&gt;&gt;&gt;
+&gt;&gt;&gt; d = deque()            # make a new deque
+&gt;&gt;&gt; d.append(&#39;c&#39;)          # add a new entry to the right side
+&gt;&gt;&gt; d.appendleft(&#39;b&#39;)      # add a new entry to the left side
+&gt;&gt;&gt; d.appendleft(&#39;a&#39;)      # add a new entry to the left side
+&gt;&gt;&gt; d                      # show the representation of the deque
+deque([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])
+&gt;&gt;&gt; d.pop()                # return and remove the rightmost item
+&#39;c&#39;
+&gt;&gt;&gt; d.popleft()            # return and remove the leftmost item
+&#39;a&#39;
+&gt;&gt;&gt; list(d)                # list the contents of the deque
+[&#39;b&#39;]
+&gt;&gt;&gt; d[0]                   # peek at leftmost item
+&#39;b&#39;
+</code></pre>
+<p>&nbsp;</p>
+<h2>ChainMap</h2>
+<p>Sometimes, we need to override global values/config etc from a local config like
+different <code>mysql</code> host for production and dev environment, in such situation we
+can use <code>ChainMap</code>.</p>
+<p>ChainMap is used to encapsulate multiple mappings as one view. In case of a
+<code>key</code> present in multiple mappings then value of first dict passed will be taken into
+account.</p>
+<pre><code class="language-Python">&gt;&gt;&gt; import collections 
+&gt;&gt;&gt;
+&gt;&gt;&gt; local_env = {&#39;MYSQL_HOST&#39;: &#39;localhost&#39;}
+&gt;&gt;&gt; prod_env = {&#39;MYSQL_HOST&#39;:  &#39;172.30.X.X&#39;}
+&gt;&gt;&gt;
+&gt;&gt;&gt; print(local_env[&#39;MYSQL_HOST&#39;])
+localhost
+&gt;&gt;&gt;
+&gt;&gt;&gt; final_env = collections.ChainMap(prod_env, local_env)
+&gt;&gt;&gt;
+&gt;&gt;&gt; print(final_env)
+ChainMap({&#39;MYSQL_HOST&#39;: &#39;172.30.X.X&#39;}, {&#39;MYSQL_HOST&#39;: &#39;localhost&#39;})
+&gt;&gt;&gt;
+&gt;&gt;&gt; print(final_env[&#39;MYSQL_HOST&#39;])
+172.30.X.X
+&gt;&gt;&gt;
+</code></pre>
+<p>&nbsp;</p>
+<h2>Counter</h2>
+<p>This container data type is a subclass of dict and is used to store counts of
+hash-able objects. It can come handy when you have to keep track of number of
+occurrences of an element in an iterable (<code>str</code>, <code>list</code>, etc). For
+missing/non-existent keys it returns 0 or &#39;&#39; instead of IndexError.</p>
+<p>Example use-case, find numbers which appear more than once in a list.</p>
+<pre><code class="language-Python">&gt;&gt;&gt; import collections
+&gt;&gt;&gt;
+&gt;&gt;&gt; l = [&#39;a&#39;, &#39;b&#39;, &#39;a&#39;, &#39;b&#39;, &#39;a&#39;]
+&gt;&gt;&gt; counter = collections.Counter(l)
+&gt;&gt;&gt;
+&gt;&gt;&gt; print(counter[&#39;a&#39;])       // &#39;a&#39; occurs 3 times
+3
+&gt;&gt;&gt; print(counter[&#39;b&#39;])       // &#39;b&#39; occurs 2 times
+2
+&gt;&gt;&gt; print(counter.most_common(1))
+[(&#39;a&#39;, 2)]
+&gt;&gt;&gt; counter[&#39;c&#39;] += 1         // add &#39;c&#39;
+&gt;&gt;&gt; print(counter[&#39;c&#39;])
+1
+&gt;&gt;&gt; print(c[&#39;xyz&#39;])
+</code></pre>
+<p>&nbsp;</p>
+<h2>OrderedDict</h2>
+<p>Although, fundamentally dict doesn’t need to have a definite order as we don’t
+access elements using its position/index rather we use a <code>key</code> but still there are
+possible use-cases when one need to preserve the order of insertion, therefore
+comes this DataType called <code>OrderedDict</code> to satisfy this use case.</p>
+<pre><code class="language-Python">&gt;&gt;&gt; import collections
+&gt;&gt;&gt;
+&gt;&gt;&gt; d = {}
+&gt;&gt;&gt;
+&gt;&gt;&gt; d[&#39;a&#39;] = 1
+&gt;&gt;&gt; d[&#39;b&#39;] = 2
+&gt;&gt;&gt; d[&#39;c&#39;] = 3
+&gt;&gt;&gt;
+&gt;&gt;&gt; for k, v in d.items():
+...    print(k, v)
+...
+a 1           # order is not same as order of insertion
+c 3
+b 2
+&gt;&gt;&gt; 
+&gt;&gt;&gt; od = collections.OrderedDict()
+&gt;&gt;&gt;
+&gt;&gt;&gt; od[&#39;a&#39;] = 1
+&gt;&gt;&gt; od[&#39;b&#39;] = 2
+&gt;&gt;&gt; od[&#39;c&#39;] = 3
+&gt;&gt;&gt;
+&gt;&gt;&gt; for k, v in od.items():
+...    print(k, v)
+...
+a 1           # YaY! order is same as order of insertion
+b 2
+c 3
+</code></pre>
+<p>&nbsp;</p>
+<h2>defaultdict</h2>
+<p>Almost all of us have faced this <code>KeyError</code> while accessing non-existent keys in a
+dict but fortunately <code>defaultdict</code> saves us from this notorious error and
+return the mutually decided default value. <code>defaultdict</code> accepts a
+function/factory as its argument to return the default value. Let’s see how it
+works</p>
+<pre><code class="language-Python">&gt;&gt;&gt; import collections
+&gt;&gt;&gt;
+&gt;&gt;&gt; dd = collections.defaultdict(lambda: 0)
+&gt;&gt;&gt;
+&gt;&gt;&gt; dd[&#39;a&#39;] = 2
+&gt;&gt;&gt; dd[&#39;b&#39;] = 3
+&gt;&gt;&gt;
+&gt;&gt;&gt; print(dd[&#39;a&#39;])
+2
+&gt;&gt;&gt; print(dd[&#39;x&#39;])      # &#39;x&#39; is non-existent
+0
+</code></pre>
+<p>&nbsp;</p>
+<h2>UserList, UserDict, and UserString</h2>
+<p>These Data types are subclass of standard <code>list</code>, <code>dict</code> and <code>str</code> class
+respectively and act as wrapper around them. You can use them as base class for
+your objects so that you can extend default behaviours and add new ones.</p>
+<p>&nbsp;</p>
+<h2>Conclusion</h2>
+<p>The collections module in Python is not very extensive or fancy, and also it
+doesn&#39;t intend to satisfy every use case but still it can come very handy for
+some particular use-cases where otherwise a developer would have to write a
+custom and tricky workaround. </p>
+<p>Problems like immutable object attributes, keeping track of occurrences of elements in a list, 
+maintain order in dicts, <code>O(1)</code> <code>append</code> and <code>pop</code> from both ends of a list, etc. are very common 
+and therefore python has standard modules to handle them.</p>
+<p>You can learn more about <code>collections</code> module in <a href="https://docs.python.org/3/library/collections.html">official docs here</a> 
+as each one of them have some cool methods to manipulate data which aren’t mentioned in this article.</p>
+<p>&nbsp;</p>
+<p>#TillThenHappyCoding</p>
+
+            </article>
+        </main>
+        
+        <!-- Overlay for mobile when menu is open -->
+        <label for="nav-toggle" class="nav-overlay"></label>
+    </div>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing a bloom filter in go</title>
+    <!-- Fonts: Inter + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Icons: Material Symbols Rounded -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <!-- Syntax Highlighting: highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <!-- Sidebar Collapse Toggle (Desktop) -->
+    <input type="checkbox" id="sidebar-collapse" class="sidebar-collapse-checkbox">
+    
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <label for="nav-toggle" class="nav-button" aria-label="Toggle Menu">
+            <span class="nav-icon"></span>
+        </label>
+        <a href="/" class="header-logo">Nakli.Tech</a>
+        <button id="mobile-theme-btn" class="icon-btn mobile-theme-btn" aria-label="Toggle Theme">
+            <span class="material-symbols-rounded">dark_mode</span>
+        </button>
+    </header>
+
+    <div class="layout">
+        <!-- Action Bar (Obsidian-style) -->
+        <aside class="action-bar">
+            <div class="action-bar__top">
+                <label for="sidebar-collapse" class="icon-btn action-btn" title="Toggle Sidebar">
+                    <span class="material-symbols-rounded sidebar-icon-collapsed">menu</span>
+                    <span class="material-symbols-rounded sidebar-icon-expanded">menu_open</span>
+                </label>
+                <!-- Top actions (e.g., Search) -->
+            </div>
+            <div class="action-bar__bottom">
+                <button id="theme-toggle-btn" class="icon-btn action-btn" title="Toggle Theme">
+                    <span class="material-symbols-rounded">dark_mode</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="nav">
+                <div class="nav-header">
+                    <a href="/" class="nav-logo">Nakli.Tech</a>
+                </div>
+                <div class="nav-content">
+                    <ul class="nav-list"><li class="nav-folder">
+                <input type="checkbox" id="folder-Random-Tech" class="folder-checkbox">
+                <label for="folder-Random-Tech" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">Random Tech</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/Random Tech/12-factor-app.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">12-factor-app</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/bastion-servers.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bastion-servers</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/dns-over-tls.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">dns-over-tls</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/understanding-procfs.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">understanding-procfs</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/vim-macros-with-args.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">vim-macros-with-args</span>
+                </a>
+              </li><li>
+                <a href="/Random Tech/why-dns-uses-udp-if-its-unreliable.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">why-dns-uses-udp-if-its-unreliable</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-series" class="folder-checkbox">
+                <label for="folder-series" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">series</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/series/ultimate-shell-scripting-part-I.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">ultimate-shell-scripting-part-I</span>
+                </a>
+              </li></ul>
+              </li><li class="nav-folder">
+                <input type="checkbox" id="folder-tutorials" class="folder-checkbox">
+                <label for="folder-tutorials" class="nav-header-label">
+                  <span class="material-symbols-rounded folder-icon">chevron_right</span>
+                  <span class="nav-label">tutorials</span>
+                </label>
+                <ul class="nav-list"><li>
+                <a href="/tutorials/bloom-filter.html" class="nav-link file-link is-active">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">bloom-filter</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/gcloud-configurations.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">gcloud-configurations</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/my-vim-tmux-setup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">my-vim-tmux-setup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/mysql-physical-backup.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">mysql-physical-backup</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/python-collections-module.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">python-collections-module</span>
+                </a>
+              </li><li>
+                <a href="/tutorials/setup-local-k8s-env-using-kind.html" class="nav-link file-link ">
+                  <span class="material-symbols-rounded">description</span>
+                  <span class="nav-label">setup-local-k8s-env-using-kind</span>
+                </a>
+              </li></ul>
+              </li></ul>
+                </div>
+                <footer class="sidebar-footer">
+                    <p>&copy; 2026 Nakli.Tech</p>
+                    <p>Built with ❤️ using <a href="https://github.com/shubhamoli/Patra" target="_blank">Patra</a></p>
+                </footer>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="markdown-body">
+                <header class="page-header"><h1 class="page-title">Writing a bloom filter in go</h1><div class="page-meta"><span class="page-date">19/07/2020</span><span class="page-read-time">7 min read</span><span class="page-words">1333 words</span></div><div class="page-tags"><span class="tag">Data Structures</span><span class="tag">Tutorials</span></div></header>
+                <p>&nbsp;
+&nbsp;</p>
+<h3>Let&#39;s assume you&#39;re assigned a task to implement a feature which will check whether a username is already taken or not.</h3>
+<p><strong>You:</strong> <em>Sounds easy.</em> </p>
+<p>Most probably your first intuitive approach will be to check for username availabilty in your database everytime a new
+user tries to signup. Right?</p>
+<p><strong>Manager:</strong> Good, but does this going to scale well? can we make it more efficient?</p>
+<p>Somehow we have to minimize:</p>
+<ul>
+<li>DB search</li>
+<li>Network calls</li>
+</ul>
+<p><strong>You:</strong> Perfect, I know a data structure highly appropriate for these kind of
+problems and it is known as Bloom Filter.</p>
+<p><em>&lt;FeelingProudOfYourself.gif&gt;</em> </p>
+<p>&nbsp;</p>
+<h2>OKay, What is a Bloom Filter?</h2>
+<p>Bloom filter is a probalistic Data Structure designed by Burton Howard Bloom in
+1970. It is primarily used for answering set membership queries <em>i.e.,</em> check if an element <strong>x</strong>
+is present in a set <strong>S</strong> or not. </p>
+<p>Although <em>prima facie</em> it&#39;s use-case seems similar to hash tables (fast lookup) but it is very space
+efficient than conventional hash tables and therefore preferred in low core memory scenarios.</p>
+<p>It is probalistic in nature as it may return false positives. If bloom filter
+says an element is not present then we can be 100% sure that it&#39;s not <em><strong>but</strong></em> for any
+positive response, the element may or may not be present in the set and in this
+case we have to query our primary source (may be DB) for final confirmation.</p>
+<p>One may argue that we&#39;re stil end up calling our primary source for the final
+confirmation then what&#39;s the benefit, but let me tell you that with proper configuration
+(using mathematics) we can reduce these calls to a huge extent (almost negligible).</p>
+<p>For calculating optimal value of <code>m</code> and <code>k</code> from total no. of elements <code>n</code> and
+error rate <code>e</code> see formula in the program below or see <a href="https://en.wikipedia.org/wiki/Bloom_filter#Optimal_number_of_hash_functions">here</a></p>
+<p>While risking false positives, bloom filter has substantial space advantage over
+other Data Structures like hash tables, tries, binary search trees, etc. bacause these DS
+store the element itself which can require small no. of bits (for ints) to
+arbitrary large no. of bits (for strings). Bloom filter doesn&#39;t store element at
+all and a separate solution like a DB should be used to store actual element.</p>
+<p><strong>Important:</strong> <em>A Bloom filter with a <code>1%</code> error and an optimal value of <code>k</code>, in contrast, requires
+only about <code>9.6 bits</code> per element, regardless of the size of the elements</em></p>
+<p>&nbsp;</p>
+<h2>Data Structure</h2>
+<p>Bloom filter is a bit vector of <strong>m</strong> bits where initially all bits are set to
+<code>0</code>. It also has <strong>k</strong> (<code>k</code> &lt; &lt; <code>m</code>) hash functions where each of them maps or hashes some set element to
+one of the <strong>m</strong> array positions.</p>
+<p>&nbsp;</p>
+<h3>Algorithm</h3>
+<p>&nbsp;</p>
+<p>{{&lt; figure src=&quot;/images/bloom-init.png&quot; width=&quot;100%&quot; title=&quot;bloom-filter at init&quot; &gt;}}</p>
+<p>&nbsp;</p>
+<p><strong>To add an element:</strong></p>
+<ul>
+<li>Pass element through <code>k</code> hash functions to get <code>k</code> indices (<code>k &lt; &lt; m</code>).</li>
+<li>Set bit at these indices to <strong>1</strong>.</li>
+</ul>
+<p>{{&lt; figure src=&quot;/images/bloom-add.png&quot; width=&quot;100%&quot; title=&quot;&quot; &gt;}}</p>
+<p>&nbsp; </p>
+<p><strong>To check set membership of an element</strong></p>
+<ul>
+<li>Pass element through <code>k</code> hash functions to get <code>k</code> indices</li>
+<li>Check bit at these indices, if any bit is <strong>0</strong> then immediately return <code>false</code>.</li>
+<li>If all bits are <strong>1</strong>, then return <code>true</code> but remember this may be a false positive and we
+have to confirm its presence with primary source which in our case is our DB.</li>
+</ul>
+<p>{{&lt; figure src=&quot;/images/bloom-false.png&quot; width=&quot;100%&quot; title=&quot;Key does not exist (100% surity)&quot; &gt;}}</p>
+<p>&nbsp;</p>
+<p>{{&lt; figure src=&quot;/images/bloom-query.png&quot; width=&quot;100%&quot; title=&quot;key may or may not exist&quot; &gt;}}</p>
+<p>&nbsp;</p>
+<p><strong>Why false positives?</strong></p>
+<p>With time, and even with highly uniform hashing algorithm, most of indices will be <code>1</code>
+and if when we now query an element then the probablity of returning all <code>1s</code> will be
+high.</p>
+<p>For ex:</p>
+<ul>
+<li><code>foo</code> set bits at index <code>1</code>, <code>3</code>, and <code>5</code></li>
+<li><code>bar</code> set bits at index <code>2</code>, <code>4</code>, <code>6</code></li>
+<li>Now, we want to check for <code>baz</code> but our bit vector is now almost full of
+<code>1s</code> and <code>baz</code> maps to indices <code>2</code>, <code>5</code>, and <code>6</code> which are all <code>1s</code> but
+we know that <code>baz</code> was never present in the set and hence it&#39;s a false positive as these bits weren&#39;t set by <code>baz</code>
+itself.</li>
+</ul>
+<p>But with proper configuration using mathematics this situation can be avoided easily.</p>
+<p>&nbsp;</p>
+<h2>Program in golang</h2>
+<pre><code>// package bloom implements a very simple bloom filter
+//
+// Simple here means:
+// - fixed length
+// - elements can&#39;t be removed
+// - not production ready in any sense
+package bloom
+
+
+// Word about external packages used
+//
+// 1. BitSet is not availble in standard go library so I&#39;ve to import
+//	  third-party library or as an alternative can use go&#39;s &quot;big&quot; package as bitset
+//
+// 2. murmur3 algorithm is used because it has best trade-off between
+//    speed and uniformity
+//	  inspired by this answer: https://stackoverflow.com/a/40343867
+
+import (
+	&quot;fmt&quot;
+	&quot;math&quot;
+
+	&quot;github.com/spaolacci/murmur3&quot;
+	&quot;github.com/willf/bitset&quot;
+)
+
+
+type BloomFilter struct {
+	m		uint				// size of bit vector
+	k		uint				// no. of hash functions to use
+	b		*bitset.BitSet		// bit vector
+}
+
+
+// Add an element to set
+func (bf *BloomFilter) Add(key string) {
+	data := []byte(key)
+
+	// generate k index to set
+	// using k hash functions
+	for i := uint(0); i &lt; bf.k; i++ {
+		// find hash with seed value &quot;i&quot;
+		// so that each time we get diff hash
+		v1, _ := murmur3.Sum128WithSeed(data, uint32(i))
+		// normalise to 0...m-1
+		index := v1 % uint64(bf.m)
+		// set bit at idex to 1
+		bf.b.Set(uint(index))
+	}
+}
+
+// query an element against set
+func (bf *BloomFilter) Contains(key string) (bool) {
+	data := []byte(key)
+
+	for i := uint(0); i &lt; bf.k; i++ {
+		v1, _ := murmur3.Sum128WithSeed(data, uint32(i))
+		// normalize to 0...m-1
+		index := v1 % uint64(bf.m)
+		// if any bit is found 0
+		// return false immediately
+		if ! bf.b.Test(uint(index)) {
+			return false
+		}
+	}
+
+	// Otherwise return true
+	// Remeber: element may be false positive
+	return true
+}
+
+
+// for formula: see wikipedia page of bloom filter
+//
+// and you can verify here
+// https://www.di-mgt.com.au/bloom-calculator.html
+// https://hur.st/bloomfilter/
+func calcM(n uint, e float64) (uint) {
+	tmp := - ((float64(n) * (math.Log(e))) / float64(math.Pow(math.Log(2), 2)))
+	return uint(math.Ceil(tmp))
+}
+
+
+// for formula: see wikipedia page of bloom filter
+//
+// and you can verify here
+// https://www.di-mgt.com.au/bloom-calculator.html
+// https://hur.st/bloomfilter/
+func calcK(e float64) (uint) {
+	return uint(math.Ceil(-1 * math.Log2(e)))
+}
+
+
+// Initialise and return bloom filter
+func Init(n uint, e float64) *BloomFilter {
+	fmt.Printf(&quot;Info :: Creating BloomFilter for %d elements, with %.2f error rate\n&quot;, n, e)
+
+	m := calcM(n, e)
+	k := calcK(e)
+
+	fmt.Printf(&quot;Info :: Required m and k are %d, %d \n&quot;, uint(m), k)
+
+	// create bitset of size m and return BloomFilter
+	return &amp;BloomFilter{m, k, bitset.New(m)}
+
+}
+
+
+</code></pre>
+<h3>Driver Program</h3>
+<pre><code>package main
+
+import (
+	&quot;bloom-filter/bloom&quot;
+	&quot;fmt&quot;
+)
+
+
+// Driver program
+func main() {
+    // create a bloom filter to store 10000 usernames
+    // with false positive tolerance to 1%
+	usernameStore := bloom.Init(1000, 0.01)
+
+	usernameStore.Add(&quot;foo&quot;)
+	usernameStore.Add(&quot;bar&quot;)
+	usernameStore.Add(&quot;baz&quot;)
+
+	fmt.Printf(&quot;%t\n&quot;, usernameStore.Contains(&quot;foo&quot;))				// true
+	fmt.Printf(&quot;%t\n&quot;, usernameStore.Contains(&quot;ishouldbefalse&quot;))	// false
+	fmt.Printf(&quot;%t\n&quot;, usernameStore.Contains(&quot;metoo&quot;))				// false
+	fmt.Printf(&quot;%t\n&quot;, usernameStore.Contains(&quot;bar&quot;))				// true
+	fmt.Printf(&quot;%t\n&quot;, usernameStore.Contains(&quot;idon&#39;tbelonghere&quot;))	// false
+	fmt.Printf(&quot;%t\n&quot;, usernameStore.Contains(&quot;foo&quot;))				// true
+
+}
+</code></pre>
+<h2>Conclusion</h2>
+<p>So, that was our attempt to implement a very simple bloom filter from scratch in golang.</p>
+<p>Simple bloom filters are just the start. Bloom filter serve for variety of use-case and more advanced versions of it are being
+used at low latency large scale environments. </p>
+<p>Some of the products using bloom filters are:</p>
+<ul>
+<li>Akamai uses bloom filters to avoid &quot;one-hit wonders&quot;</li>
+<li>Medium relies on bloom filters to avoid recommending articles user has previously
+read</li>
+<li>Chrome used to use them to protect users from opening malicious sites</li>
+<li>Many DBs use them to avoid disk lookups for non-existent rows and columns</li>
+<li>Ethereum uses Bloom filters for quickly finding logs on the Ethereum blockchain</li>
+<li>and infinitely more use-cases and applications.</li>
+</ul>
+<p>To learn more about bloom filters in details see it&#39;s <a href="https://en.wikipedia.org/wiki/Bloom_filter">Wikipedia
+page</a></p>
+<p>And, for math behind bloom filters, <a href="http://pages.cs.wisc.edu/~cao/papers/summary-cache/node8.html">see this</a></p>
+<p>&nbsp;</p>
+<p>#TillThenHappyCoding</p>
+
+            </article>
+        </main>
+        
+        <!-- Overlay for mobile when menu is open -->
+        <label for="nav-toggle" class="nav-overlay"></label>
+    </div>
+</body>
+</html>
