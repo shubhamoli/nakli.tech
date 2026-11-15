@@ -1,6 +1,6 @@
 # nakli.tech
 
-My personal site and notes, built with [Patra](https://github.com/shubhamoli/Patra). The home page is my resume, and the rest is stuff I've written over the years.
+My personal site and notes, built with [Patra](https://github.com/shubhamoli/Patra). The home page is about me, and the rest is stuff I've written over the years.
 
 ## Running it locally
 
@@ -17,8 +17,8 @@ Then open <http://localhost:8080>.
 ## Where things are
 
 ```text
-content/             the notes, the resume and images
-content/Resume.md    the home page
+content/             the notes, the About me page and images
+content/About me.md  the home page
 content/_redirects   sends old Hugo URLs to the new pages (Cloudflare reads this)
 patra.config.json    site name, theme and which note is the home page
 public/              the built site (generated, not committed)

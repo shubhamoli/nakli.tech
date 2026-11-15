@@ -1,7 +1,7 @@
 /* nakli.tech overrides on top of Patra's styles.
    This file isn't in a cascade layer, so these rules win over Patra's. */
 
-/* ---- Resume header: centred photo, name and role ---- */
+/* ---- About me header: centred photo, name and role ---- */
 
 /* The profile block has its own heading, so hide the title Patra adds above it. */
 .note:has(.profile) > .note__header {
@@ -49,4 +49,28 @@
   font-size: var(--text-lg);
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-tight);
+}
+
+/* ---- Phone "Files" button: relabel it so people know it leads to the writing ---- */
+.fab > span {
+  display: none;
+}
+
+.fab::after {
+  content: "My Writings";
+}
+
+/* Make it stand out: solid accent fill with white text. The accent is darkened a
+   little so white text stays readable (WCAG AA) in both light and dark mode. */
+.fab {
+  border-color: transparent;
+  background: color-mix(in oklab, var(--color-accent) 82%, black);
+  color: var(--color-on-accent);
+  box-shadow:
+    0 6px 18px color-mix(in srgb, var(--color-accent) 45%, transparent),
+    var(--shadow-raised);
+}
+
+.fab:hover {
+  background: color-mix(in oklab, var(--color-accent) 70%, black);
 }

@@ -1,5 +1,5 @@
 ---
-title: Resume
+title: About me
 ---
 
 <div class="profile">
@@ -13,7 +13,7 @@ title: Resume
   </p>
 </div>
 
-## Summary
+## About me
 
 Senior Platform Engineer with 9+ years of hands-on experience building cloud- and AI-native infrastructure and internal platforms for engineering teams.
 
