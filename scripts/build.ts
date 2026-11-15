@@ -38,6 +38,18 @@ interface TreeFolder {
 }
 
 const ENGINE_DIR = '_patra';
+
+/**
+ * gray-matter evaluates `---js` / `---javascript` frontmatter with eval(), so a note could
+ * run arbitrary code on whatever machine builds the site. Only YAML (the default) and JSON
+ * frontmatter are allowed; anything else stops the build with a clear error.
+ */
+const refuseCodeFrontmatter = (): never => {
+  throw new Error('JavaScript frontmatter (---js) is not allowed. Use YAML frontmatter (---) instead.');
+};
+const SAFE_MATTER_OPTIONS = {
+  engines: { js: refuseCodeFrontmatter, javascript: refuseCodeFrontmatter },
+};
 const IMAGE_EXT = /\.(png|jpe?g|gif|svg|webp|avif|bmp|ico)$/i;
 
 // ---------------------------------------------------------------- helpers
@@ -113,7 +125,13 @@ export async function generateSite(config: SiteConfig): Promise<void> {
 
   // ---- load pages
   const pages: Page[] = mdFiles.map((src) => {
-    const { data, content } = matter(fs.readFileSync(path.join(contentDir, src), 'utf-8'));
+    let parsed: { data: Record<string, unknown>; content: string };
+    try {
+      parsed = matter(fs.readFileSync(path.join(contentDir, src), 'utf-8'), SAFE_MATTER_OPTIONS);
+    } catch (err) {
+      throw new Error(`Could not read the frontmatter in ${src}: ${(err as Error).message}`);
+    }
+    const { data, content } = parsed;
     const fileTitle = path.posix.basename(src).replace(/\.md$/i, '');
     return {
       src,

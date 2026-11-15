@@ -40,8 +40,12 @@ const MIME: Record<string, string> = {
   '.txt': 'text/plain; charset=utf-8',
 };
 
-/** Minimal static file server for previewing the generated site. */
-function serve(root: string, port: number): void {
+/**
+ * Minimal static file server for previewing the generated site.
+ * Listens on localhost only unless a host is given, so the preview isn't
+ * reachable from other devices on the network by default.
+ */
+function serve(root: string, port: number, host: string): void {
   const rootDir = path.resolve(root);
   http
     .createServer((req, res) => {
@@ -49,6 +53,11 @@ function serve(root: string, port: number): void {
       try {
         urlPath = decodeURIComponent(new URL(req.url || '/', 'http://localhost').pathname);
       } catch {
+        res.writeHead(400).end('Bad request');
+        return;
+      }
+      // A null byte makes Node's fs calls throw, which would otherwise crash the server.
+      if (urlPath.includes('\0')) {
         res.writeHead(400).end('Bad request');
         return;
       }
@@ -69,7 +78,13 @@ function serve(root: string, port: number): void {
         res.writeHead(200, { 'Content-Type': type }).end(data);
       });
     })
-    .listen(port, () => console.log(`Serving ${rootDir} at http://localhost:${port}`));
+    .listen(port, host, () => {
+      const shown = host === '127.0.0.1' || host === '::1' ? 'localhost' : host;
+      console.log(`Serving ${rootDir} at http://${shown}:${port}`);
+      if (host !== '127.0.0.1' && host !== '::1' && host !== 'localhost') {
+        console.log('Warning: the preview is reachable from other devices on your network.');
+      }
+    });
 }
 
 const program = new Command();
@@ -111,8 +126,9 @@ program
   .command('serve')
   .description('Preview the generated site locally')
   .option('-p, --port <number>', 'port to serve on', '8080')
-  .action((options: { port: string }) => {
-    serve(loadConfig().outputDir, Number(options.port));
+  .option('--host <address>', 'address to listen on (use 0.0.0.0 to share on your network)', '127.0.0.1')
+  .action((options: { port: string; host: string }) => {
+    serve(loadConfig().outputDir, Number(options.port), options.host);
   });
 
 program.parse(process.argv);
