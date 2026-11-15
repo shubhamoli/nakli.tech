@@ -74,3 +74,48 @@
 .fab:hover {
   background: color-mix(in oklab, var(--color-accent) 70%, black);
 }
+
+/* ---- Phones, home page only: show the writing list in the page ----
+   The sidebar normally slides in as a drawer on phones. On the home page
+   (the one with the profile block) it's shown at the top of the page
+   instead, so visitors see the writing first. Desktop is unchanged. */
+@media (max-width: 47.99rem) {
+  :root:has(.profile) .sidebar {
+    position: static;
+    width: auto;
+    height: auto;
+    border-right: 0;
+    border-bottom: var(--border-width) solid var(--color-border);
+    box-shadow: none;
+    transform: none;
+    visibility: visible;
+    transition: none;
+  }
+
+  :root:has(.profile) .tree {
+    flex: none;
+    overflow: visible;
+    padding-bottom: var(--space-4);
+  }
+
+  :root:has(.profile) .tree::before {
+    content: "My Writings";
+    display: block;
+    padding: var(--space-2) var(--space-1-5) var(--space-1);
+    color: var(--color-text-subtle);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* Don't list "About me" under My Writings while you're on it. */
+  :root:has(.profile) .tree__item:has(> [aria-current="page"]) {
+    display: none;
+  }
+
+  /* Not needed when the list is already on the page. */
+  :root:has(.profile) :is(.sidebar__close, .sidebar__footer, .scrim, .fab) {
+    display: none;
+  }
+}
