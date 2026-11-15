@@ -1,0 +1,997 @@
+/* ==========================================================================
+   Patra stylesheet
+
+   Layers, from lowest to highest priority:
+
+     reset       box-sizing and browser quirks
+     tokens      design tokens: primitives → semantic → component
+     state       the only place that reads the hidden checkboxes; it turns
+                 them into custom properties that the rest of the CSS reads
+     base        element defaults
+     layout      page frame (sidebar, main column, drawer)
+     components  sidebar, tree, breadcrumb, buttons, note header...
+     prose       rendered markdown (.prose)
+     utilities   small single-purpose classes (.truncate, .icon...)
+
+   Anything outside a layer beats every layer. That's how assets/custom.css
+   works: put your overrides there and they win without !important.
+
+   Mobile first: base styles target small screens. The one breakpoint is
+   48rem (768px); it's repeated in each @media because custom properties
+   can't be used in media queries.
+   ========================================================================== */
+
+@layer reset, tokens, state, base, layout, components, prose, utilities;
+
+/* ==========================================================================
+   Reset
+   ========================================================================== */
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+  }
+}
+
+/* ==========================================================================
+   Tokens
+   ========================================================================== */
+
+@layer tokens {
+  :root {
+    color-scheme: light dark;
+
+    /* ---- 1. Primitives: the raw palette. Re-skin the site here. ---- */
+
+    --brand-light: #7052d8; /* accent in light mode */
+    --brand-dark: #8a6cf0; /* accent in dark mode */
+
+    --white: #ffffff;
+    --black: #000000;
+    --yellow: #ffd000;
+
+    --gray-0: #ffffff;
+    --gray-50: #f6f6f6;
+    --gray-100: #f0f0f0;
+    --gray-150: #e3e3e3;
+    --gray-200: #dadada;
+    --gray-400: #a3a3a3;
+    --gray-500: #8f8f8f;
+    --gray-600: #6b6b6b;
+    --gray-700: #4f4f4f;
+    --gray-800: #363636;
+    --gray-850: #2a2a2a;
+    --gray-900: #262626;
+    --gray-925: #222222;
+    --gray-950: #1e1e1e;
+    --gray-1000: #111111;
+
+    /* ---- 2. Semantic tokens: what components use. Each is a light/dark pair. ---- */
+
+    --color-bg: light-dark(var(--gray-0), var(--gray-950));
+    --color-surface: light-dark(var(--gray-50), var(--gray-900)); /* sidebar, panels */
+    --color-surface-sunken: light-dark(var(--gray-100), var(--gray-850)); /* code */
+    --color-border: light-dark(var(--gray-150), var(--gray-800));
+    --color-guide: light-dark(var(--gray-200), var(--gray-800)); /* tree indent lines */
+
+    /* All text colours meet WCAG AA (4.5:1) on both --color-bg and --color-surface. */
+    --color-text: light-dark(var(--gray-925), var(--gray-200));
+    --color-text-muted: light-dark(var(--gray-700), var(--gray-400));
+    --color-text-subtle: light-dark(var(--gray-600), var(--gray-500));
+    --color-heading: light-dark(var(--gray-1000), var(--gray-100));
+
+    --color-accent: light-dark(var(--brand-light), var(--brand-dark));
+    --color-on-accent: var(--white);
+
+    /* Derived from the tokens above, so changing the brand colours re-themes these too. */
+    --color-link: color-mix(in oklab, var(--color-accent) 85%, var(--color-text));
+    --color-link-underline: color-mix(in srgb, var(--color-link) 40%, transparent);
+    --color-accent-soft: color-mix(in srgb, var(--color-accent) 12%, transparent); /* tags */
+    --color-accent-subtle: color-mix(in srgb, var(--color-accent) 8%, transparent); /* quotes */
+    --color-hover: color-mix(in srgb, var(--color-text) 6%, transparent);
+    --color-selected: color-mix(in srgb, var(--color-text) 10%, transparent);
+    --color-highlight: color-mix(in srgb, var(--yellow) 40%, transparent);
+    --color-scrim: color-mix(in srgb, var(--black) 45%, transparent);
+
+    /* Typography */
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-prose: var(--font-sans);
+    --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+    --text-2xs: 0.75rem; /* 12px */
+    --text-xs: 0.8125rem; /* 13px */
+    --text-sm: 0.875rem; /* 14px */
+    --text-md: 0.9375rem; /* 15px */
+    --text-base: 1rem; /* 16px */
+    --text-lg: 1.0625rem; /* 17px */
+
+    --leading-tight: 1.2;
+    --leading-heading: 1.25;
+    --leading-snug: 1.35;
+    --leading-code: 1.55;
+    --leading-normal: 1.6;
+
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+
+    --tracking-tight: -0.01em;
+    --tracking-tighter: -0.015em;
+
+    /* Spacing (4px grid, plus a few half steps) */
+    --space-0-5: 0.125rem;
+    --space-1: 0.25rem;
+    --space-1-5: 0.375rem;
+    --space-2: 0.5rem;
+    --space-2-5: 0.625rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-7: 1.75rem;
+    --space-8: 2rem;
+    --space-12: 3rem;
+    --space-24: 6rem;
+    --space-28: 7rem;
+
+    /* Shape */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.375rem;
+    --radius-pill: 999px;
+    --border-width: 1px;
+    --border-width-thick: 2px;
+    --border-width-accent: 3px;
+
+    /* Focus */
+    --focus-ring: 2px solid var(--color-accent);
+    --focus-offset: 2px;
+
+    /* Elevation and stacking */
+    --shadow-raised: 0 10px 30px light-dark(rgb(0 0 0 / 0.18), rgb(0 0 0 / 0.55));
+    --z-sticky: 5;
+    --z-fab: 10;
+    --z-scrim: 20;
+    --z-drawer: 30;
+    --z-skip-link: 100;
+
+    /* Motion */
+    --duration-fast: 150ms;
+    --duration-base: 220ms;
+    --ease-standard: ease;
+
+    /* ---- 3. Component tokens: layout knobs (mobile values first) ---- */
+
+    --sidebar-width: 17.5rem;
+    --drawer-width: min(85vw, 20rem);
+    --topbar-height: 2.75rem;
+    --measure: 45rem; /* max width of a note */
+    --content-padding: var(--space-7) var(--space-4) var(--space-28);
+    --icon-size: 1.125rem;
+    --icon-button-size: 1.875rem;
+    --fab-height: 3rem;
+    --tree-row-height: 2.5rem;
+    --tree-font-size: var(--text-md);
+    --prose-font-size: var(--text-base);
+    --note-title-size: 1.75em;
+  }
+
+  @media (min-width: 48rem) {
+    :root {
+      --content-padding: var(--space-12) var(--space-8) var(--space-24);
+      --tree-row-height: 1.875rem;
+      --tree-font-size: var(--text-sm);
+      --prose-font-size: var(--text-lg);
+      --note-title-size: 2.1em;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --duration-fast: 0ms;
+      --duration-base: 0ms;
+    }
+  }
+
+  /* Browsers without light-dark() (before mid-2024) get the light theme
+     instead of losing every colour. */
+  @supports not (color: light-dark(#000, #fff)) {
+    :root {
+      --color-bg: var(--gray-0);
+      --color-surface: var(--gray-50);
+      --color-surface-sunken: var(--gray-100);
+      --color-border: var(--gray-150);
+      --color-guide: var(--gray-200);
+      --color-text: var(--gray-925);
+      --color-text-muted: var(--gray-700);
+      --color-text-subtle: var(--gray-600);
+      --color-heading: var(--gray-1000);
+      --color-accent: var(--brand-light);
+      --color-link: #6544d0;
+      --color-link-underline: rgb(101 68 208 / 0.4);
+      --color-accent-soft: rgb(112 82 216 / 0.12);
+      --color-accent-subtle: rgb(112 82 216 / 0.08);
+      --color-hover: rgb(0 0 0 / 0.05);
+      --color-selected: rgb(0 0 0 / 0.08);
+      --color-highlight: rgb(255 208 0 / 0.4);
+      --color-scrim: rgb(0 0 0 / 0.45);
+      --shadow-raised: 0 10px 30px rgb(0 0 0 / 0.18);
+    }
+  }
+}
+
+/* ==========================================================================
+   State
+   The hidden checkboxes in template.html (#sidebar-toggle, #theme-toggle)
+   are read here and nowhere else. Everything else reads the custom
+   properties set below, so the markup can be rearranged freely.
+   ========================================================================== */
+
+@layer state {
+  /* Theme: config or saved choice sets data-theme; the toggle flips whatever is active. */
+  :root[data-theme="light"] {
+    color-scheme: light;
+  }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:has(#theme-toggle:checked) {
+      color-scheme: dark;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:has(#theme-toggle:checked) {
+      color-scheme: light;
+    }
+  }
+
+  :root[data-theme="light"]:has(#theme-toggle:checked) {
+    color-scheme: dark;
+  }
+
+  :root[data-theme="dark"]:has(#theme-toggle:checked) {
+    color-scheme: light;
+  }
+
+  /* Sidebar. Mobile reads the drawer properties, desktop the sidebar ones.
+     Checked means "drawer open" on mobile and "sidebar collapsed" on desktop. */
+  :root {
+    --drawer-offset: -100%;
+    --drawer-visibility: hidden;
+    --scrim-opacity: 0;
+    --scrim-pointer-events: none;
+    --sidebar-column: var(--sidebar-width);
+    --sidebar-visibility: visible;
+  }
+
+  :root:has(#sidebar-toggle:checked) {
+    --drawer-offset: 0%;
+    --drawer-visibility: visible;
+    --scrim-opacity: 1;
+    --scrim-pointer-events: auto;
+    --sidebar-column: 0px;
+    --sidebar-visibility: hidden;
+  }
+
+  /* The checkboxes are visually hidden; show their focus on the visible controls. */
+  :root:has(#sidebar-toggle:focus-visible) label[for="sidebar-toggle"]:not(.scrim),
+  :root:has(#theme-toggle:focus-visible) label[for="theme-toggle"] {
+    outline: var(--focus-ring);
+    outline-offset: var(--focus-offset);
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: var(--focus-offset);
+  }
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+@layer layout {
+  .app {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  /* Mobile: the sidebar is an off-canvas drawer. */
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: var(--z-drawer);
+    display: flex;
+    flex-direction: column;
+    width: var(--drawer-width);
+    overflow: hidden;
+    border-right: var(--border-width) solid var(--color-border);
+    box-shadow: var(--shadow-raised);
+    transform: translateX(var(--drawer-offset));
+    visibility: var(--drawer-visibility);
+    transition:
+      transform var(--duration-base) var(--ease-standard),
+      visibility var(--duration-base);
+  }
+
+  .scrim {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-scrim);
+    background: var(--color-scrim);
+    opacity: var(--scrim-opacity);
+    pointer-events: var(--scrim-pointer-events);
+    transition: opacity var(--duration-base) var(--ease-standard);
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .content {
+    flex: 1;
+    padding: var(--content-padding);
+  }
+
+  .note {
+    max-width: var(--measure);
+    margin-inline: auto;
+  }
+
+  /* Desktop: the sidebar is a column that can collapse. */
+  @media (min-width: 48rem) {
+    .app {
+      display: grid;
+      grid-template-columns: var(--sidebar-column) minmax(0, 1fr);
+    }
+
+    .sidebar {
+      position: sticky;
+      inset: auto;
+      top: 0;
+      z-index: auto;
+      width: auto;
+      height: 100vh;
+      height: 100dvh;
+      box-shadow: none;
+      transform: none;
+      transition: none;
+      visibility: var(--sidebar-visibility);
+    }
+
+    .scrim {
+      display: none;
+    }
+  }
+
+  @media print {
+    .sidebar,
+    .scrim {
+      display: none;
+    }
+
+    .app {
+      display: block;
+    }
+
+    .content {
+      padding: 0;
+    }
+  }
+}
+
+/* ==========================================================================
+   Components
+   ========================================================================== */
+
+@layer components {
+  /* ---- Skip link ---- */
+  .skip-link {
+    position: absolute;
+    top: calc(-1 * var(--space-12)); /* off-screen until focused */
+    left: var(--space-2);
+    z-index: var(--z-skip-link);
+    padding: var(--space-1-5) var(--space-3);
+    border-radius: var(--radius-md);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    text-decoration: none;
+  }
+
+  .skip-link:focus {
+    top: var(--space-2);
+  }
+
+  /* ---- Icon button ---- */
+  .icon-btn {
+    display: inline-grid;
+    place-items: center;
+    width: var(--icon-button-size);
+    height: var(--icon-button-size);
+    border-radius: var(--radius-md);
+    color: var(--color-text-subtle);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .icon-btn:hover {
+    background: var(--color-hover);
+    color: var(--color-text);
+  }
+
+  /* ---- Sidebar ---- */
+  .sidebar__header {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    height: var(--topbar-height);
+    padding: 0 var(--space-3) 0 var(--space-4);
+  }
+
+  .sidebar__brand {
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+  }
+
+  .sidebar__brand:hover {
+    color: var(--color-accent);
+  }
+
+  .sidebar__footer {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    min-height: var(--topbar-height);
+    padding: var(--space-1-5) var(--space-2-5) var(--space-1-5) var(--space-4);
+    padding-bottom: calc(var(--space-1-5) + env(safe-area-inset-bottom));
+    border-top: var(--border-width) solid var(--color-border);
+  }
+
+  .sidebar__copyright {
+    color: var(--color-text-subtle);
+    font-size: var(--text-2xs);
+  }
+
+  @media (min-width: 48rem) {
+    .sidebar__close {
+      display: none;
+    }
+  }
+
+  /* ---- Top bar ---- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2-5);
+    height: var(--topbar-height);
+    padding-inline: var(--space-4);
+    border-bottom: var(--border-width) solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  /* On phones the bottom "Files" button replaces this (it's out of thumb reach). */
+  .topbar__toggle {
+    display: none;
+  }
+
+  @media (min-width: 48rem) {
+    .topbar {
+      padding-inline: var(--space-3);
+    }
+
+    .topbar__toggle {
+      display: inline-grid;
+    }
+  }
+
+  /* ---- Floating "Files" button (phones only) ---- */
+  .fab {
+    position: fixed;
+    right: var(--space-4);
+    bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+    z-index: var(--z-fab);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    height: var(--fab-height);
+    padding-inline: var(--space-4);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-pill);
+    color: var(--color-text);
+    font-size: var(--text-md);
+    font-weight: var(--weight-medium);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  @media (min-width: 48rem) {
+    .fab {
+      display: none;
+    }
+  }
+
+  /* ---- File tree ---- */
+  .tree {
+    --tree-row-padding-x: var(--space-1-5);
+    --tree-chevron-size: 0.75rem;
+    --tree-chevron-gap: var(--space-1);
+    --tree-indent: 0.8125rem;
+
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-1) var(--space-2-5) var(--space-6);
+    font-size: var(--tree-font-size);
+    overscroll-behavior: contain;
+  }
+
+  .tree__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Nested lists get an indent guide like Obsidian. */
+  .tree__list .tree__list {
+    margin-left: var(--tree-indent);
+    padding-left: var(--space-1-5);
+    border-left: var(--border-width) solid var(--color-guide);
+  }
+
+  .tree__row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    min-height: var(--tree-row-height);
+    padding: var(--space-0-5) var(--space-2) var(--space-0-5) var(--tree-row-padding-x);
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
+    line-height: var(--leading-snug);
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .tree__row:hover {
+    background: var(--color-hover);
+    color: var(--color-text);
+  }
+
+  /* Files line up with folder names (past the folder chevron). */
+  .tree__row--file {
+    padding-left: calc(var(--tree-row-padding-x) + var(--tree-chevron-size) + var(--tree-chevron-gap));
+  }
+
+  .tree__row--file[aria-current="page"] {
+    background: var(--color-selected);
+    color: var(--color-heading);
+    font-weight: var(--weight-medium);
+  }
+
+  .tree__row--folder {
+    list-style: none;
+    color: var(--color-text);
+  }
+
+  .tree__row--folder::-webkit-details-marker {
+    display: none;
+  }
+
+  .tree__row--folder::before {
+    content: "";
+    flex: none;
+    width: var(--tree-chevron-size);
+    height: var(--tree-chevron-size);
+    margin-right: var(--tree-chevron-gap);
+    background: currentColor;
+    opacity: 0.6;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+    transition: transform var(--duration-fast) var(--ease-standard);
+  }
+
+  .tree__folder[open] > .tree__row--folder::before {
+    transform: rotate(90deg);
+  }
+
+  /* ---- Breadcrumb ---- */
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1-5);
+    min-width: 0;
+    overflow: hidden;
+    color: var(--color-text-subtle);
+    font-size: var(--text-sm);
+    white-space: nowrap;
+  }
+
+  .breadcrumb__item,
+  .breadcrumb__current {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .breadcrumb__current {
+    color: var(--color-text);
+  }
+
+  /* ---- Status bar (word count, desktop only) ---- */
+  .statusbar {
+    display: none;
+  }
+
+  @media (min-width: 48rem) {
+    .statusbar {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      display: block;
+      padding: var(--space-0-5) var(--space-3);
+      border: var(--border-width) solid var(--color-border);
+      border-right: 0;
+      border-bottom: 0;
+      border-top-left-radius: var(--radius-md);
+      color: var(--color-text-subtle);
+      font-size: var(--text-2xs);
+    }
+
+    .statusbar:empty {
+      display: none;
+    }
+  }
+
+  /* ---- Note header ---- */
+  .note__header {
+    margin-bottom: 1.6em;
+  }
+
+  .note__title {
+    margin: 0;
+    color: var(--color-heading);
+    font-size: var(--note-title-size);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tighter);
+    overflow-wrap: anywhere;
+  }
+
+  .note__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin: 0.6em 0 0;
+    color: var(--color-text-subtle);
+    font-size: var(--text-sm);
+  }
+
+  .note__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1-5);
+    margin: 0.8em 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* ---- Tag ---- */
+  .tag {
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-pill);
+    background: var(--color-accent-soft);
+    color: var(--color-link);
+    font-size: var(--text-xs);
+  }
+
+  .empty-state {
+    color: var(--color-text-muted);
+  }
+
+  @media print {
+    .topbar,
+    .statusbar,
+    .fab,
+    .skip-link {
+      display: none;
+    }
+  }
+}
+
+/* ==========================================================================
+   Prose: rendered markdown
+   Spacing between blocks comes from one variable, --flow-space, applied
+   with the "owl" selector (* + *). Override --flow-space on an element to
+   change the gap above it.
+   ========================================================================== */
+
+@layer prose {
+  .prose {
+    --flow-space: 1em;
+    --heading-space-before: 1.6em;
+    --heading-space-after: 0.5em;
+    --list-item-space: 0.25em;
+    --rule-space: 2em;
+
+    --heading-1: 2em;
+    --heading-2: 1.6em;
+    --heading-3: 1.35em;
+    --heading-4: 1.15em;
+    --heading-5: 1em;
+    --heading-6: 0.9em;
+
+    font-family: var(--font-prose);
+    font-size: var(--prose-font-size);
+    overflow-wrap: break-word;
+  }
+
+  /* ---- Flow spacing ---- */
+  .prose > *,
+  .prose :where(blockquote, li) > * {
+    margin: 0;
+  }
+
+  .prose > * + *,
+  .prose :where(blockquote, li) > * + * {
+    margin-block-start: var(--flow-space);
+  }
+
+  /* Order matters: a heading right after a heading keeps the larger gap. */
+  .prose > :where(h1, h2, h3, h4, h5, h6) + * {
+    --flow-space: var(--heading-space-after);
+  }
+
+  .prose > :where(h1, h2, h3, h4, h5, h6) {
+    --flow-space: var(--heading-space-before);
+  }
+
+  .prose > :where(hr, hr + *) {
+    --flow-space: var(--rule-space);
+  }
+
+  /* ---- Headings ---- */
+  .prose :where(h1, h2, h3, h4, h5, h6) {
+    color: var(--color-heading);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-tight);
+    scroll-margin-top: calc(var(--topbar-height) + var(--space-4));
+  }
+
+  .prose :where(h1) { font-size: var(--heading-1); }
+  .prose :where(h2) { font-size: var(--heading-2); }
+  .prose :where(h3) { font-size: var(--heading-3); }
+  .prose :where(h4) { font-size: var(--heading-4); }
+  .prose :where(h5) { font-size: var(--heading-5); }
+  .prose :where(h6) { font-size: var(--heading-6); color: var(--color-text-muted); }
+
+  /* ---- Lists ---- */
+  .prose :where(ul, ol) {
+    padding-left: 1.6em;
+  }
+
+  .prose :where(li) {
+    --flow-space: var(--list-item-space);
+  }
+
+  .prose :where(li + li) {
+    margin-top: var(--list-item-space);
+  }
+
+  .prose :where(li)::marker {
+    color: var(--color-text-subtle);
+  }
+
+  /* GFM task lists */
+  .prose :where(li:has(> input[type="checkbox"])) {
+    margin-left: -1.4em;
+    list-style: none;
+  }
+
+  .prose :where(input[type="checkbox"]) {
+    margin: 0 0.45em 0 0;
+    vertical-align: -0.1em;
+    accent-color: var(--color-accent);
+  }
+
+  /* ---- Inline text ---- */
+  .prose :where(a) {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-decoration-color: var(--color-link-underline);
+    text-underline-offset: 0.18em;
+  }
+
+  .prose :where(a:hover) {
+    text-decoration-color: currentColor;
+  }
+
+  .prose :where(strong) {
+    color: var(--color-heading);
+    font-weight: var(--weight-semibold);
+  }
+
+  .prose :where(mark) {
+    padding: 0 var(--space-0-5);
+    border-radius: var(--radius-sm);
+    background: var(--color-highlight);
+    color: inherit;
+  }
+
+  /* Wiki-links: no underline until hover; missing notes are dotted and subtle. */
+  .prose :where(a.wikilink) {
+    text-decoration: none;
+  }
+
+  .prose :where(a.wikilink:hover) {
+    text-decoration: underline;
+  }
+
+  .prose :where(.wikilink[data-unresolved]) {
+    color: var(--color-text-subtle);
+    text-decoration: underline dotted;
+    text-underline-offset: 0.18em;
+    cursor: default;
+  }
+
+  /* ---- Blocks ---- */
+  .prose :where(blockquote) {
+    padding: 0.8em 1.1em;
+    border-left: var(--border-width-accent) solid var(--color-accent);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    background: var(--color-accent-subtle);
+    color: var(--color-text);
+  }
+
+  .prose :where(hr) {
+    height: var(--border-width);
+    border: 0;
+    background: var(--color-border);
+  }
+
+  .prose :where(img, video) {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+  }
+
+  /* ---- Code ---- */
+  .prose :where(code, kbd, pre) {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+  }
+
+  .prose :where(:not(pre) > code) {
+    padding: 0.12em 0.38em;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-sunken);
+    color: var(--color-heading);
+  }
+
+  .prose :where(kbd) {
+    padding: 0.1em 0.4em;
+    border: var(--border-width) solid var(--color-border);
+    border-bottom-width: var(--border-width-thick);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-sunken);
+  }
+
+  .prose :where(pre) {
+    padding: var(--space-3) var(--space-4);
+    overflow-x: auto;
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-sunken);
+    line-height: var(--leading-code);
+    tab-size: 4;
+  }
+
+  .prose :where(pre code) {
+    font-size: 1em;
+  }
+
+  /* ---- Tables ---- */
+  .prose :where(table) {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: 0.95em;
+  }
+
+  .prose :where(th, td) {
+    padding: var(--space-1-5) var(--space-3);
+    border: var(--border-width) solid var(--color-border);
+    text-align: left;
+  }
+
+  .prose :where(th) {
+    background: var(--color-surface);
+    color: var(--color-heading);
+    font-weight: var(--weight-semibold);
+  }
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+@layer utilities {
+  /* Hidden on screen, still reachable by keyboard and screen readers. */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    opacity: 0;
+  }
+
+  /* Single line, cut off with "…". */
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Interface icons (inline SVGs in the template). Only SVGs with this class are
+     styled, so SVGs inside notes keep their own size and colours. */
+  .icon {
+    flex: none;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Panel background (sidebar, status bar, floating button). */
+  .surface {
+    background-color: var(--color-surface);
+  }
+
+  /* Lifted off the page with a shadow. */
+  .elevated {
+    box-shadow: var(--shadow-raised);
+  }
+}
