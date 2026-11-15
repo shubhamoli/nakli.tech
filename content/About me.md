@@ -1,5 +1,5 @@
 ---
-title: Resume
+title: About me
 ---
 
 <div class="profile">
