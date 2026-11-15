@@ -1,0 +1,15 @@
+# Cloudflare Pages redirects: old Hugo URLs → new Patra pages.
+# Patra copies this file into public/ as-is (it's not markdown).
+
+/posts/random-tech/:slug/  /Random%20Tech/:slug  301
+/posts/random-tech/:slug   /Random%20Tech/:slug  301
+/posts/tutorials/:slug/    /Tutorials/:slug      301
+/posts/tutorials/:slug     /Tutorials/:slug      301
+/posts/series/:slug/       /Series/:slug         301
+/posts/series/:slug        /Series/:slug         301
+
+/posts/random-tech/  /  301
+/posts/tutorials/    /  301
+/posts/series/       /  301
+/posts/              /  301
+/posts               /  301

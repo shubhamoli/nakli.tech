@@ -1,4 +1,16 @@
-**/.DS_store
-/resources/_gen/
-/public/
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
 
+# Node.js
+node_modules/
+npm-debug.log*
+
+# TypeScript
+dist/
+*.tsbuildinfo
+
+# Generated site (content/ is tracked: it holds the sample notes)
+public/

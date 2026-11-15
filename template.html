@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="{{theme}}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{{css}}">
+    {{customCss}}
+    <!-- Optional: restore the saved theme choice before first paint. The site works fully without JS. -->
+    <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <!-- Sidebar state, read by the "state" layer in style.css. Desktop: checked = collapsed. Mobile: checked = drawer open. -->
+    <input type="checkbox" id="sidebar-toggle" class="visually-hidden" aria-label="Toggle file explorer">
+
+    <div class="app">
+        <aside class="sidebar surface" aria-label="File explorer">
+            <header class="sidebar__header">
+                <a class="sidebar__brand truncate" href="{{home}}">{{siteName}}</a>
+                <label for="sidebar-toggle" class="icon-btn sidebar__close" title="Close file explorer">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                </label>
+            </header>
+            <nav class="tree">
+                {{sidebar}}
+            </nav>
+            <footer class="sidebar__footer">
+                <small class="sidebar__copyright truncate">&copy; {{year}} {{siteName}}</small>
+                <!-- CSS-only: checking flips the current theme on this page; the script below makes it stick. -->
+                <input type="checkbox" id="theme-toggle" class="visually-hidden" aria-label="Switch between light and dark theme">
+                <label for="theme-toggle" class="icon-btn" title="Switch light / dark theme">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
+                </label>
+            </footer>
+        </aside>
+
+        <label for="sidebar-toggle" class="scrim" aria-hidden="true"></label>
+
+        <div class="main">
+            <header class="topbar">
+                <label for="sidebar-toggle" class="icon-btn topbar__toggle" title="Toggle file explorer">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M9.5 4.5v15"/></svg>
+                </label>
+                <nav class="breadcrumb" aria-label="Breadcrumb">{{breadcrumb}}</nav>
+            </header>
+
+            <main id="content" class="content">
+                <article class="note">
+                    {{header}}
+                    <div class="prose">
+                        {{content}}
+                    </div>
+                </article>
+            </main>
+
+            <footer class="statusbar surface">{{stats}}</footer>
+        </div>
+
+        <label for="sidebar-toggle" class="fab surface elevated" title="Open file explorer">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            <span>Files</span>
+        </label>
+    </div>
+
+    <!-- Optional: remember the theme toggle across pages. -->
+    <script>
+    (function () {
+        var box = document.getElementById('theme-toggle');
+        if (!box) return;
+        box.addEventListener('change', function () {
+            var root = document.documentElement;
+            var set = root.getAttribute('data-theme');
+            var now = set === 'light' || set === 'dark' ? set
+                : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            var next = now === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            box.checked = false; // the attribute now carries the choice; don't flip twice
+            try { localStorage.setItem('theme', next); } catch (e) {}
+        });
+    })();
+    </script>
+</body>
+</html>

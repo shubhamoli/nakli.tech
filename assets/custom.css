@@ -1,0 +1,52 @@
+/* nakli.tech overrides on top of Patra's styles.
+   This file isn't in a cascade layer, so these rules win over Patra's. */
+
+/* ---- Resume header: centred photo, name and role ---- */
+
+/* The profile block has its own heading, so hide the title Patra adds above it. */
+.note:has(.profile) > .note__header {
+  display: none;
+}
+
+.profile {
+  margin-bottom: var(--space-8);
+  text-align: center;
+}
+
+.prose .profile__photo {
+  display: block;
+  width: 10rem;
+  height: 10rem;
+  margin: 0 auto var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 35%;
+}
+
+.prose .profile__name {
+  margin: 0;
+  font-size: var(--note-title-size);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tighter);
+}
+
+.prose .profile__role {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-muted);
+}
+
+.prose .profile__links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-subtle);
+}
+
+/* ---- Site name at the top of the sidebar ---- */
+.sidebar__brand {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+}
